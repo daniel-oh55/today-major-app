@@ -200,9 +200,9 @@ export default async function GameDetailPage({ params }: { params: Promise<{ gam
         </Section>
       )}
 
-      {/* 주요 이벤트 */}
+      {/* 경기 이벤트 */}
       {events.length > 0 && (
-        <Section title="주요 이벤트">
+        <Section title="경기 이벤트">
           <div className="flex flex-col gap-2">
             {events.map((event) => (
               <div key={event.id} className="bg-white rounded-xl border border-gray-100 px-4 py-3 flex gap-3 items-start">

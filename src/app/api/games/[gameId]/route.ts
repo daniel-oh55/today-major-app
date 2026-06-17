@@ -10,7 +10,7 @@ export async function GET(
     const center = await getGameCenter(gameId);
     return NextResponse.json(center);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("[api/games/[gameId]] Failed to load game center:", err);
+    return NextResponse.json({ error: "Failed to load game" }, { status: 500 });
   }
 }

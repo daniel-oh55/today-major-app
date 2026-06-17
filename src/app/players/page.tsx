@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Fragment, useState, useTransition } from "react";
 import { PlayerCard } from "@/components/players/PlayerCard";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { LoadingState } from "@/components/common/LoadingState";
@@ -16,7 +16,7 @@ export default function PlayersPage() {
   async function handleSearch(q: string) {
     if (!q.trim()) { setResults([]); setSearched(false); return; }
     startTransition(async () => {
-      const res = await fetch(`/api/players/search?q=${encodeURIComponent(q)}&limit=10`);
+      const res = await fetch(`/api/players/search?q=${encodeURIComponent(q)}&limit=20`);
       const data: AppPlayer[] = await res.json();
       setResults(data);
       setSearched(true);
@@ -53,10 +53,10 @@ export default function PlayersPage() {
       {!isPending && results.length > 0 && (
         <div className="px-4 py-3 flex flex-col gap-2">
           {results.map((player, idx) => (
-            <>
-              <PlayerCard key={player.id} player={player} />
-              {idx === 4 && <AdSlot key="search-ad" placement="search_result_inline" />}
-            </>
+            <Fragment key={player.id}>
+              <PlayerCard player={player} />
+              {idx === 4 && <AdSlot placement="search_result_inline" />}
+            </Fragment>
           ))}
           <AdSlot placement="search_result_inline" className="mt-2" />
         </div>

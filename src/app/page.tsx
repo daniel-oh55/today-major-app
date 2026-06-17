@@ -1,14 +1,10 @@
+import { Fragment } from "react";
 import { getGamesByDate } from "@/lib/services/gameService";
 import { GameCard } from "@/components/games/GameCard";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { DataSourceNotice } from "@/components/common/DataSourceNotice";
 import { EmptyState } from "@/components/common/EmptyState";
-
-function getTodayKst(): string {
-  const now = new Date();
-  const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-  return kst.toISOString().slice(0, 10);
-}
+import { getTodayKst } from "@/lib/utils/koreaTime";
 
 export const revalidate = 60;
 
@@ -57,13 +53,12 @@ export default async function HomePage() {
           <h2 className="text-sm font-bold text-gray-700 mb-2">전체 경기</h2>
           <div className="flex flex-col gap-2">
             {otherGames.map((game, idx) => (
-              <>
-                <GameCard key={game.id} game={game} />
-                {/* 4번째 카드 이후 광고 삽입 */}
+              <Fragment key={game.id}>
+                <GameCard game={game} />
                 {idx === 3 && (
-                  <AdSlot key="native-mid" placement="home_game_list_native" />
+                  <AdSlot placement="home_game_list_native" />
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         </section>

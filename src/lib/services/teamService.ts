@@ -1,3 +1,4 @@
+import "server-only";
 import { getBaseballDataProvider } from "../providers";
 import type { AppTeamDetail } from "../models/team";
 

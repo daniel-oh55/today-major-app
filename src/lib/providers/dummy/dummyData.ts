@@ -85,7 +85,7 @@ export function getDummyGames(dateKst: string): AppGame[] {
       gameDate: dateKst, gameTimeKst: "09:38",
       status: "final", statusDetail: "Final/10",
       homeTeam: teamMap["chc"], awayTeam: teamMap["nyy"],
-      homeScore: 6, awayScore: 6,
+      homeScore: 7, awayScore: 6,
       inning: 10, inningHalf: "bottom", isTiebreak: false,
     },
     {

@@ -1,18 +1,13 @@
 import { NextResponse } from "next/server";
 import { getGamesByDate } from "@/lib/services/gameService";
-
-function getTodayKst(): string {
-  const now = new Date();
-  const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-  return kst.toISOString().slice(0, 10);
-}
+import { getTodayKst } from "@/lib/utils/koreaTime";
 
 export async function GET() {
   try {
     const games = await getGamesByDate(getTodayKst());
     return NextResponse.json(games);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("[api/games/today] Failed to load games:", err);
+    return NextResponse.json({ error: "Failed to load games" }, { status: 500 });
   }
 }
