@@ -36,7 +36,7 @@ export function LineScoreTable({ lineScore, awayTeam, homeTeam, awayScore, homeS
           <tbody>
             {/* 원정팀 */}
             <tr className="border-b border-gray-50">
-              <td className="py-2 px-3 font-semibold text-gray-700 sticky left-0 bg-white">{awayTeam.abbreviation}</td>
+              <th scope="row" className="py-2 px-3 font-semibold text-gray-700 sticky left-0 bg-white text-left">{awayTeam.abbreviation}</th>
               {lineScore.map((r) => (
                 <td key={r.inning} className="py-2 px-2 text-center text-gray-600 tabular-nums">{r.awayRuns}</td>
               ))}
@@ -46,7 +46,7 @@ export function LineScoreTable({ lineScore, awayTeam, homeTeam, awayScore, homeS
             </tr>
             {/* 홈팀 */}
             <tr>
-              <td className="py-2 px-3 font-semibold text-gray-700 sticky left-0 bg-white">{homeTeam.abbreviation}</td>
+              <th scope="row" className="py-2 px-3 font-semibold text-gray-700 sticky left-0 bg-white text-left">{homeTeam.abbreviation}</th>
               {lineScore.map((r) => (
                 <td key={r.inning} className="py-2 px-2 text-center text-gray-600 tabular-nums">{r.homeRuns}</td>
               ))}

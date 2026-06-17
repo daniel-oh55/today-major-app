@@ -1,9 +1,9 @@
 import type { BaseballDataProvider, GetGamesByDateParams, GetGameCenterParams, SearchPlayersParams, GetPlayerParams, GetTeamParams } from "../types";
 import type { AppGame, AppGameCenter } from "../../models/game";
-import type { AppPlayer, AppPlayerDetail } from "../../models/player";
+import type { AppPlayerDetail } from "../../models/player";
 import type { AppTeamDetail } from "../../models/team";
 import { getTodayKst } from "../../utils/koreaTime";
-import { getDummyGames, getDummyGameCenter, DUMMY_PLAYERS, DUMMY_TEAM_DETAILS } from "./dummyData";
+import { getDummyGames, getDummyGameCenter, getEnrichedPlayer, getEnrichedPlayers, DUMMY_TEAM_DETAILS } from "./dummyData";
 
 export class DummyProvider implements BaseballDataProvider {
   async getGamesByDate({ dateKst }: GetGamesByDateParams): Promise<AppGame[]> {
@@ -30,18 +30,21 @@ export class DummyProvider implements BaseballDataProvider {
     };
   }
 
-  async searchPlayers({ query, limit = 10 }: SearchPlayersParams): Promise<AppPlayer[]> {
+  async searchPlayers({ query, limit = 10 }: SearchPlayersParams): Promise<AppPlayerDetail[]> {
     const q = query.toLowerCase();
-    return DUMMY_PLAYERS.filter(
-      (p) =>
-        p.fullName.toLowerCase().includes(q) ||
-        p.teamName.toLowerCase().includes(q) ||
-        p.position.toLowerCase().includes(q)
-    ).slice(0, limit);
+    return getEnrichedPlayers()
+      .filter(
+        (p) =>
+          p.fullName.toLowerCase().includes(q) ||
+          (p.koreanName?.toLowerCase().includes(q) ?? false) ||
+          p.teamName.toLowerCase().includes(q) ||
+          p.position.toLowerCase().includes(q)
+      )
+      .slice(0, limit);
   }
 
   async getPlayer({ playerId }: GetPlayerParams): Promise<AppPlayerDetail> {
-    const player = DUMMY_PLAYERS.find((p) => p.id === playerId);
+    const player = getEnrichedPlayer(playerId);
     if (!player) throw new Error(`Player not found: ${playerId}`);
     return player;
   }

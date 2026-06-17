@@ -2,7 +2,7 @@
 // 실제 연동 시 이 파일을 구현합니다.
 import type { BaseballDataProvider, GetGamesByDateParams, GetGameCenterParams, SearchPlayersParams, GetPlayerParams, GetTeamParams } from "../types";
 import type { AppGame, AppGameCenter } from "../../models/game";
-import type { AppPlayer, AppPlayerDetail } from "../../models/player";
+import type { AppPlayerDetail } from "../../models/player";
 import type { AppTeamDetail } from "../../models/team";
 
 export class BallDontLieProvider implements BaseballDataProvider {
@@ -16,7 +16,7 @@ export class BallDontLieProvider implements BaseballDataProvider {
     throw new Error("BallDontLieProvider: not implemented");
   }
 
-  async searchPlayers(_params: SearchPlayersParams): Promise<AppPlayer[]> {
+  async searchPlayers(_params: SearchPlayersParams): Promise<AppPlayerDetail[]> {
     throw new Error("BallDontLieProvider: not implemented");
   }
 
