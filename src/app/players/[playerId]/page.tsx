@@ -2,6 +2,7 @@ import { getPlayer } from "@/lib/services/playerService";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { PlayerStatSummary } from "@/components/players/PlayerStatSummary";
 import { RecentGameLogTable } from "@/components/players/RecentGameLogTable";
+import { FavoriteButton } from "@/components/favorites/FavoriteButton";
 import { notFound } from "next/navigation";
 
 const NATIONALITY_LABEL: Record<string, string> = {
@@ -51,6 +52,11 @@ export default async function PlayerDetailPage({ params }: { params: Promise<{ p
             )}
             <p className="text-sm text-blue-200 mt-1">{player.teamName}</p>
           </div>
+        </div>
+
+        {/* 즐겨찾기 버튼 */}
+        <div className="mt-3">
+          <FavoriteButton id={playerId} type="player" />
         </div>
 
         {/* 세부 정보 그리드 */}

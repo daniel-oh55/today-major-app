@@ -12,9 +12,7 @@ import {
   getFavoriteTeamGames,
   type StatusFilter,
 } from "@/lib/utils/gameSummary";
-
-// Phase 1: 임시 고정값. Phase 2에서 사용자 저장 기능으로 교체 예정.
-const TEMP_FAVORITE_TEAM_IDS: string[] = ["lad", "nyy"];
+import { useFavorites } from "@/lib/hooks/useFavorites";
 
 interface HomeClientProps {
   games: AppGame[];
@@ -30,11 +28,12 @@ const FILTER_TABS: { value: StatusFilter; label: string }[] = [
 
 export function HomeClient({ games, dateKst }: HomeClientProps) {
   const [filter, setFilter] = useState<StatusFilter>("all");
+  const { teamIds, mounted } = useFavorites();
 
   const counts = getGameStatusCounts(games);
-  const favoriteGames = getFavoriteTeamGames(games, TEMP_FAVORITE_TEAM_IDS);
+  const favoriteGames = getFavoriteTeamGames(games, teamIds);
   const filteredGames = filterGamesByStatus(games, filter);
-  const showFavorites = filter === "all" && favoriteGames.length > 0;
+  const showFavorites = mounted && filter === "all" && favoriteGames.length > 0;
 
   return (
     <div className="flex flex-col gap-0 pb-6">
