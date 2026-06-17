@@ -2,6 +2,7 @@ import type { BaseballDataProvider, GetGamesByDateParams, GetGameCenterParams, S
 import type { AppGame, AppGameCenter } from "../../models/game";
 import type { AppPlayer, AppPlayerDetail } from "../../models/player";
 import type { AppTeamDetail } from "../../models/team";
+import { getTodayKst } from "../../utils/koreaTime";
 import { getDummyGames, getDummyGameCenter, DUMMY_PLAYERS, DUMMY_TEAM_DETAILS } from "./dummyData";
 
 export class DummyProvider implements BaseballDataProvider {
@@ -14,7 +15,7 @@ export class DummyProvider implements BaseballDataProvider {
     if (center) return center;
 
     // 다른 gameId는 종료 경기 skeleton 반환
-    const games = getDummyGames("2025-06-17");
+    const games = getDummyGames(getTodayKst());
     const game = games.find((g) => g.id === gameId);
     if (!game) throw new Error(`Game not found: ${gameId}`);
 
