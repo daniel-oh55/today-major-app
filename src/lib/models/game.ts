@@ -16,6 +16,7 @@ export interface AppGame {
   inning: number;
   inningHalf: AppInningHalf;
   isTiebreak: boolean;
+  venue?: string;         // 구장명
 }
 
 export interface AppBaseState {
