@@ -67,7 +67,7 @@ export function getDummyGames(dateKst: string): AppGame[] {
     {
       id: "g004", providerRef: { providerId: "dummy", externalId: "g004" },
       gameDate: dateKst, gameTimeKst: "13:15",
-      status: "scheduled", statusDetail: "1:15 PM ET",
+      status: "pre_game", statusDetail: "1:15 PM ET",
       homeTeam: teamMap["sf"], awayTeam: teamMap["nym"],
       homeScore: 0, awayScore: 0,
       inning: 0, inningHalf: "top", isTiebreak: false,
@@ -75,7 +75,7 @@ export function getDummyGames(dateKst: string): AppGame[] {
     {
       id: "g005", providerRef: { providerId: "dummy", externalId: "g005" },
       gameDate: dateKst, gameTimeKst: "14:07",
-      status: "scheduled", statusDetail: "2:07 PM ET",
+      status: "delayed", statusDetail: "우천 지연",
       homeTeam: teamMap["bos"], awayTeam: teamMap["hou"],
       homeScore: 0, awayScore: 0,
       inning: 0, inningHalf: "top", isTiebreak: false,
