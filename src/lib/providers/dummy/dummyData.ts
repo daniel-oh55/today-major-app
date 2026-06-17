@@ -109,12 +109,12 @@ const lineScore002: AppLineScoreInning[] = [
 ];
 
 const events002: AppGameEvent[] = [
-  { id: "e001", inning: 1, inningHalf: "top", eventType: "homerun", description: "Acuna Jr. hits a 2-run HR to left field", playerName: "Ronald Acuna Jr.", teamAbbr: "ATL", runs: 2 },
-  { id: "e002", inning: 2, inningHalf: "bottom", eventType: "hit", description: "Freeman singles to right, Ohtani scores", playerName: "Freddie Freeman", teamAbbr: "LAD", runs: 1 },
-  { id: "e003", inning: 3, inningHalf: "top", eventType: "hit", description: "Betts RBI double to left-center", playerName: "Mookie Betts", teamAbbr: "ATL", runs: 1 },
-  { id: "e004", inning: 3, inningHalf: "bottom", eventType: "error", description: "Error by 2B, Ohtani advances to second", teamAbbr: "LAD" },
-  { id: "e005", inning: 4, inningHalf: "top", eventType: "hit", description: "Acuna Jr. RBI single to center", playerName: "Ronald Acuna Jr.", teamAbbr: "ATL", runs: 1 },
-  { id: "e006", inning: 4, inningHalf: "bottom", eventType: "homerun", description: "Ohtani solo HR, 428 ft to right-center", playerName: "Shohei Ohtani", teamAbbr: "LAD", runs: 1 },
+  { id: "e001", inning: 1, inningHalf: "top",    eventType: "homerun", description: "2-run HR / Acuna Jr. (ATL)",      playerName: "Ronald Acuna Jr.", teamAbbr: "ATL", runs: 2 },
+  { id: "e002", inning: 2, inningHalf: "bottom",  eventType: "hit",     description: "RBI Single / Freeman (LAD)",      playerName: "Freddie Freeman",  teamAbbr: "LAD", runs: 1 },
+  { id: "e003", inning: 3, inningHalf: "top",    eventType: "hit",     description: "RBI Double / Betts (ATL)",        playerName: "Mookie Betts",     teamAbbr: "ATL", runs: 1 },
+  { id: "e004", inning: 3, inningHalf: "bottom",  eventType: "error",   description: "Fielding Error - 2B (LAD)",                                       teamAbbr: "LAD" },
+  { id: "e005", inning: 4, inningHalf: "top",    eventType: "hit",     description: "RBI Single / Acuna Jr. (ATL)",   playerName: "Ronald Acuna Jr.", teamAbbr: "ATL", runs: 1 },
+  { id: "e006", inning: 4, inningHalf: "bottom",  eventType: "homerun", description: "Solo HR / Ohtani (LAD)",          playerName: "Shohei Ohtani",    teamAbbr: "LAD", runs: 1 },
 ];
 
 const homeLineup002: AppLineupEntry[] = [

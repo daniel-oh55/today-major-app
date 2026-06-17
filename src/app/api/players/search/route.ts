@@ -5,17 +5,21 @@ const DEFAULT_LIMIT = 20;
 const MIN_LIMIT = 1;
 const MAX_LIMIT = 50;
 
-function parseLimit(raw: string | null): number {
-  const n = Number(raw);
-  if (!Number.isFinite(n) || n < MIN_LIMIT) return DEFAULT_LIMIT;
-  return Math.min(Math.floor(n), MAX_LIMIT);
+// invalid/NaN → DEFAULT_LIMIT
+// 유효한 숫자이지만 범위 밖 → clamp (0/-5 → 1, 999 → 50)
+function parseSearchLimit(rawLimit: string | null): number {
+  if (!rawLimit) return DEFAULT_LIMIT;
+  const parsed = Number(rawLimit);
+  if (!Number.isFinite(parsed)) return DEFAULT_LIMIT;
+  const integerLimit = Math.trunc(parsed);
+  return Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, integerLimit));
 }
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const query = searchParams.get("q") ?? "";
-    const limit = parseLimit(searchParams.get("limit"));
+    const limit = parseSearchLimit(searchParams.get("limit"));
     if (!query.trim()) return NextResponse.json([]);
     const players = await searchPlayers(query, limit);
     return NextResponse.json(players);

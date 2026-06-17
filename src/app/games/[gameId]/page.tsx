@@ -200,9 +200,10 @@ export default async function GameDetailPage({ params }: { params: Promise<{ gam
         </Section>
       )}
 
-      {/* 경기 이벤트 */}
+      {/* 주요 기록 이벤트 */}
       {events.length > 0 && (
-        <Section title="경기 이벤트">
+        <Section title="주요 기록 이벤트">
+          <p className="text-xs text-gray-400 mb-2">API 기반 기록 데이터만 표시합니다.</p>
           <div className="flex flex-col gap-2">
             {events.map((event) => (
               <div key={event.id} className="bg-white rounded-xl border border-gray-100 px-4 py-3 flex gap-3 items-start">
@@ -212,12 +213,11 @@ export default async function GameDetailPage({ params }: { params: Promise<{ gam
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className="text-xs font-semibold text-blue-600">{EVENT_LABEL[event.eventType]}</span>
-                    {event.teamAbbr && <span className="text-xs text-gray-400">{event.teamAbbr}</span>}
                     {event.runs != null && event.runs > 0 && (
                       <span className="text-xs font-bold text-red-500">+{event.runs}점</span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-600">{event.description}</p>
+                  <p className="text-xs text-gray-600 font-mono">{event.description}</p>
                 </div>
               </div>
             ))}
