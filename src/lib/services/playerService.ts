@@ -1,8 +1,8 @@
 import "server-only";
 import { getBaseballDataProvider } from "../providers";
-import type { AppPlayer, AppPlayerDetail } from "../models/player";
+import type { AppPlayerDetail } from "../models/player";
 
-export async function searchPlayers(query: string, limit = 10): Promise<AppPlayer[]> {
+export async function searchPlayers(query: string, limit = 10): Promise<AppPlayerDetail[]> {
   const provider = getBaseballDataProvider();
   return provider.searchPlayers({ query, limit });
 }

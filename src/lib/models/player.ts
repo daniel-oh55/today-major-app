@@ -1,4 +1,5 @@
 import type { AppProviderRef } from "./common";
+import type { AppHitterSeasonStats, AppPitcherSeasonStats, AppPlayerRecentGameLog } from "./stats";
 
 export type AppPosition =
   | "P" | "C" | "1B" | "2B" | "3B" | "SS"
@@ -27,4 +28,9 @@ export interface AppPlayerDetail extends AppPlayer {
   height?: string;
   weight?: string;
   mlbDebutDate?: string;
+  koreanName?: string;
+  status?: string;                          // "Active", "IL-10", etc.
+  hitterStats?: AppHitterSeasonStats;
+  pitcherStats?: AppPitcherSeasonStats;
+  recentGameLog?: AppPlayerRecentGameLog[];
 }

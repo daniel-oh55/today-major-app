@@ -38,7 +38,7 @@ function BatterRows({ rows, teamAbbr }: { rows: AppBoxScorePlayer[]; teamAbbr: s
           <tbody className="divide-y divide-gray-50">
             {batters.map((row) => (
               <tr key={row.player.id}>
-                <td className="py-1.5 px-3 font-medium text-gray-800 truncate max-w-[96px]">{row.player.lastName}</td>
+                <th scope="row" className="py-1.5 px-3 font-medium text-gray-800 truncate max-w-[96px] text-left">{row.player.lastName}</th>
                 <td className="py-1.5 px-2 text-right text-gray-600 tabular-nums">{row.atBats ?? "–"}</td>
                 <td className="py-1.5 px-2 text-right text-gray-600 tabular-nums">{row.runs ?? "–"}</td>
                 <td className="py-1.5 px-2 text-right text-gray-600 tabular-nums">{row.hits ?? "–"}</td>
@@ -78,7 +78,7 @@ function PitcherRows({ rows, teamAbbr }: { rows: AppBoxScorePlayer[]; teamAbbr: 
           <tbody className="divide-y divide-gray-50">
             {pitchers.map((row) => (
               <tr key={row.player.id}>
-                <td className="py-1.5 px-3 font-medium text-gray-800 truncate max-w-[96px]">{row.player.lastName}</td>
+                <th scope="row" className="py-1.5 px-3 font-medium text-gray-800 truncate max-w-[96px] text-left">{row.player.lastName}</th>
                 <td className="py-1.5 px-2 text-right text-gray-600 tabular-nums">{row.inningsPitched ?? "–"}</td>
                 <td className="py-1.5 px-2 text-right text-gray-600 tabular-nums">{row.hits ?? "–"}</td>
                 <td className="py-1.5 px-2 text-right text-gray-600 tabular-nums">{row.runs ?? "–"}</td>

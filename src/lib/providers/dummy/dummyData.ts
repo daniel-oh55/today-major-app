@@ -1,5 +1,6 @@
 import type { AppGame, AppGameCenter, AppLineScoreInning, AppGameEvent, AppLineupEntry, AppBoxScorePlayer } from "../../models/game";
 import type { AppPlayerDetail } from "../../models/player";
+import type { AppHitterSeasonStats, AppPitcherSeasonStats, AppPlayerRecentGameLog } from "../../models/stats";
 import type { AppTeam, AppTeamDetail } from "../../models/team";
 import { getTodayKst } from "../../utils/koreaTime";
 
@@ -209,7 +210,7 @@ const events001: AppGameEvent[] = [
   { id: "f004", inning: 5, inningHalf: "top",    eventType: "hit",     description: "RBI Double / Casas (BOS)",    playerName: "Triston Casas",     teamAbbr: "BOS", runs: 1 },
   { id: "f005", inning: 7, inningHalf: "top",    eventType: "error",   description: "Fielding Error (NYY) - Bichette scored", playerName: "Bo Bichette", teamAbbr: "BOS", runs: 1 },
   { id: "f006", inning: 8, inningHalf: "bottom", eventType: "hit",     description: "RBI Single / Volpe (NYY)",    playerName: "Anthony Volpe",     teamAbbr: "NYY", runs: 1 },
-  { id: "f007", inning: 9, inningHalf: "bottom", eventType: "game_end", description: "경기 종료 - NYY 5 : BOS 3" },
+  { id: "f007", inning: 9, inningHalf: "bottom", eventType: "game_end", description: "Final / NYY 5-3 BOS" },
 ];
 
 // NYY = home, BOS = away
@@ -297,3 +298,211 @@ export const DUMMY_TEAM_DETAILS: AppTeamDetail[] = [
 ];
 
 export { playerMap, teamMap };
+
+// ─── 선수 심화 데이터 ─────────────────────────────────────────────────────────
+
+type PlayerExtras = {
+  koreanName?: string;
+  status?: string;
+  hitterStats?: AppHitterSeasonStats;
+  pitcherStats?: AppPitcherSeasonStats;
+  recentGameLog?: AppPlayerRecentGameLog[];
+};
+
+const PLAYER_EXTRAS: Record<string, PlayerExtras> = {
+  // ── p001 Aaron Judge (RF/NYY) ─────────────────────────────────────────────
+  p001: {
+    koreanName: "에런 저지",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 70, atBats: 252, hits: 78,
+      doubles: 14, triples: 1, homeRuns: 32, rbi: 89, runs: 64,
+      stolenBases: 7, walks: 68, strikeouts: 112,
+      avg: ".310", obp: ".410", slg: ".600", ops: "1.010",
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "BOS", atBats: 4, runs: 2, hits: 2, homeRuns: 1, rbi: 2, walks: 0, strikeouts: 1, avg: ".310" },
+      { gameDate: "2026-06-15", opponent: "BOS", atBats: 3, runs: 0, hits: 0, homeRuns: 0, rbi: 0, walks: 1, strikeouts: 1, avg: ".306" },
+      { gameDate: "2026-06-13", opponent: "TOR", atBats: 4, runs: 1, hits: 2, homeRuns: 1, rbi: 1, walks: 0, strikeouts: 2, avg: ".309" },
+      { gameDate: "2026-06-11", opponent: "TOR", atBats: 4, runs: 0, hits: 1, homeRuns: 0, rbi: 1, walks: 1, strikeouts: 0, avg: ".305" },
+      { gameDate: "2026-06-09", opponent: "SEA", atBats: 4, runs: 1, hits: 2, homeRuns: 0, rbi: 0, walks: 0, strikeouts: 1, avg: ".308" },
+    ],
+  },
+  // ── p002 Shohei Ohtani (DH/LAD) ──────────────────────────────────────────
+  p002: {
+    koreanName: "오타니 쇼헤이",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 72, atBats: 264, hits: 78,
+      doubles: 16, triples: 2, homeRuns: 28, rbi: 78, runs: 62,
+      stolenBases: 18, walks: 58, strikeouts: 96,
+      avg: ".295", obp: ".380", slg: ".575", ops: ".955",
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "ATL", atBats: 4, runs: 1, hits: 2, homeRuns: 1, rbi: 1, walks: 0, strikeouts: 1, avg: ".295" },
+      { gameDate: "2026-06-15", opponent: "SDP", atBats: 3, runs: 0, hits: 1, homeRuns: 0, rbi: 0, walks: 1, strikeouts: 0, avg: ".292" },
+      { gameDate: "2026-06-13", opponent: "SDP", atBats: 4, runs: 0, hits: 0, homeRuns: 0, rbi: 0, walks: 0, strikeouts: 2, avg: ".290" },
+      { gameDate: "2026-06-11", opponent: "ARI", atBats: 4, runs: 2, hits: 2, homeRuns: 1, rbi: 2, walks: 0, strikeouts: 1, avg: ".294" },
+      { gameDate: "2026-06-09", opponent: "ARI", atBats: 3, runs: 0, hits: 1, homeRuns: 0, rbi: 1, walks: 1, strikeouts: 1, avg: ".292" },
+    ],
+  },
+  // ── p003 Gerrit Cole (P/NYY) ──────────────────────────────────────────────
+  p003: {
+    koreanName: "게릿 콜",
+    status: "Active",
+    pitcherStats: {
+      season: 2026, wins: 12, losses: 4, era: "2.86",
+      gamesPlayed: 18, gamesStarted: 18, inningsPitched: "110.0",
+      strikeouts: 128, walks: 25, hits: 88, homeRuns: 9,
+      whip: "1.03", saves: 0,
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "BOS", inningsPitched: "7.0", earnedRuns: 2, pitchingStrikeouts: 8, pitchingWalks: 1, result: "W" },
+      { gameDate: "2026-06-10", opponent: "SEA", inningsPitched: "6.2", earnedRuns: 2, pitchingStrikeouts: 9, pitchingWalks: 2, result: "W" },
+      { gameDate: "2026-06-04", opponent: "OAK", inningsPitched: "7.0", earnedRuns: 0, pitchingStrikeouts: 10, pitchingWalks: 1, result: "W" },
+      { gameDate: "2026-05-28", opponent: "TBR", inningsPitched: "5.1", earnedRuns: 4, pitchingStrikeouts: 7, pitchingWalks: 3, result: "L" },
+      { gameDate: "2026-05-22", opponent: "CHW", inningsPitched: "6.0", earnedRuns: 1, pitchingStrikeouts: 8, pitchingWalks: 1, result: "W" },
+    ],
+  },
+  // ── p004 Freddie Freeman (1B/LAD) ─────────────────────────────────────────
+  p004: {
+    koreanName: "프레디 프리먼",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 68, atBats: 250, hits: 77,
+      doubles: 18, triples: 1, homeRuns: 18, rbi: 72, runs: 54,
+      stolenBases: 4, walks: 55, strikeouts: 72,
+      avg: ".308", obp: ".390", slg: ".520", ops: ".910",
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "ATL", atBats: 4, runs: 1, hits: 2, homeRuns: 0, rbi: 1, walks: 1, strikeouts: 0, avg: ".308" },
+      { gameDate: "2026-06-15", opponent: "SDP", atBats: 4, runs: 0, hits: 1, homeRuns: 0, rbi: 0, walks: 0, strikeouts: 1, avg: ".306" },
+      { gameDate: "2026-06-13", opponent: "SDP", atBats: 3, runs: 1, hits: 1, homeRuns: 1, rbi: 1, walks: 1, strikeouts: 0, avg: ".308" },
+      { gameDate: "2026-06-11", opponent: "ARI", atBats: 4, runs: 0, hits: 2, homeRuns: 0, rbi: 2, walks: 0, strikeouts: 1, avg: ".306" },
+      { gameDate: "2026-06-09", opponent: "ARI", atBats: 4, runs: 0, hits: 0, homeRuns: 0, rbi: 0, walks: 0, strikeouts: 2, avg: ".305" },
+    ],
+  },
+  // ── p005 Yordan Alvarez (DH/HOU) ─────────────────────────────────────────
+  p005: {
+    koreanName: "요르단 알바레스",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 66, atBats: 236, hits: 72,
+      doubles: 15, triples: 0, homeRuns: 24, rbi: 74, runs: 52,
+      stolenBases: 2, walks: 62, strikeouts: 82,
+      avg: ".305", obp: ".412", slg: ".572", ops: ".984",
+    },
+  },
+  // ── p006 Ronald Acuna Jr. (RF/ATL) ───────────────────────────────────────
+  p006: {
+    koreanName: "로날드 아쿠냐 주니어",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 65, atBats: 238, hits: 76,
+      doubles: 14, triples: 3, homeRuns: 22, rbi: 68, runs: 70,
+      stolenBases: 30, walks: 62, strikeouts: 88,
+      avg: ".319", obp: ".420", slg: ".588", ops: "1.008",
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "LAD", atBats: 4, runs: 2, hits: 3, homeRuns: 1, rbi: 3, walks: 0, strikeouts: 0, avg: ".319" },
+      { gameDate: "2026-06-15", opponent: "NYM", atBats: 4, runs: 0, hits: 1, homeRuns: 0, rbi: 0, walks: 1, strikeouts: 1, avg: ".315" },
+      { gameDate: "2026-06-13", opponent: "NYM", atBats: 3, runs: 1, hits: 2, homeRuns: 0, rbi: 1, walks: 1, strikeouts: 0, avg: ".317" },
+      { gameDate: "2026-06-11", opponent: "MIA", atBats: 4, runs: 0, hits: 0, homeRuns: 0, rbi: 0, walks: 0, strikeouts: 2, avg: ".314" },
+      { gameDate: "2026-06-09", opponent: "MIA", atBats: 4, runs: 2, hits: 2, homeRuns: 1, rbi: 2, walks: 0, strikeouts: 1, avg: ".317" },
+    ],
+  },
+  // ── p007 Mookie Betts (SS/LAD) ───────────────────────────────────────────
+  p007: {
+    koreanName: "무키 베츠",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 60, atBats: 220, hits: 65,
+      doubles: 14, triples: 1, homeRuns: 14, rbi: 48, runs: 52,
+      stolenBases: 10, walks: 45, strikeouts: 62,
+      avg: ".295", obp: ".378", slg: ".491", ops: ".869",
+    },
+  },
+  // ── p008 Spencer Strider (P/ATL) ─────────────────────────────────────────
+  p008: {
+    koreanName: "스펜서 스트라이더",
+    status: "Active",
+    pitcherStats: {
+      season: 2026, wins: 10, losses: 7, era: "4.50",
+      gamesPlayed: 17, gamesStarted: 17, inningsPitched: "95.0",
+      strikeouts: 115, walks: 28, hits: 98, homeRuns: 14,
+      whip: "1.33", saves: 0,
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "LAD", inningsPitched: "4.0", earnedRuns: 2, pitchingStrikeouts: 5, pitchingWalks: 1, result: "ND" },
+      { gameDate: "2026-06-11", opponent: "NYM", inningsPitched: "6.0", earnedRuns: 2, pitchingStrikeouts: 8, pitchingWalks: 1, result: "W" },
+      { gameDate: "2026-06-05", opponent: "PHI", inningsPitched: "5.1", earnedRuns: 4, pitchingStrikeouts: 6, pitchingWalks: 2, result: "L" },
+      { gameDate: "2026-05-29", opponent: "MIA", inningsPitched: "7.0", earnedRuns: 0, pitchingStrikeouts: 9, pitchingWalks: 0, result: "W" },
+      { gameDate: "2026-05-23", opponent: "WSH", inningsPitched: "6.2", earnedRuns: 1, pitchingStrikeouts: 7, pitchingWalks: 1, result: "W" },
+    ],
+  },
+  // ── p009 Jose Ramirez (3B/HOU) ───────────────────────────────────────────
+  p009: {
+    koreanName: "호세 라미레스",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 68, atBats: 248, hits: 73,
+      doubles: 20, triples: 2, homeRuns: 20, rbi: 70, runs: 58,
+      stolenBases: 14, walks: 52, strikeouts: 68,
+      avg: ".294", obp: ".378", slg: ".524", ops: ".902",
+    },
+  },
+  // ── p010 Kyle Tucker (RF/CHC) ─────────────────────────────────────────────
+  p010: {
+    koreanName: "카일 터커",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 65, atBats: 238, hits: 68,
+      doubles: 16, triples: 1, homeRuns: 16, rbi: 60, runs: 48,
+      stolenBases: 8, walks: 42, strikeouts: 80,
+      avg: ".286", obp: ".364", slg: ".479", ops: ".843",
+    },
+  },
+  // ── p011 Bo Bichette (SS/BOS) ────────────────────────────────────────────
+  p011: {
+    koreanName: "보 비쳇",
+    status: "Active",
+    hitterStats: {
+      season: 2026, gamesPlayed: 70, atBats: 268, hits: 78,
+      doubles: 17, triples: 3, homeRuns: 10, rbi: 45, runs: 56,
+      stolenBases: 6, walks: 24, strikeouts: 72,
+      avg: ".291", obp: ".338", slg: ".440", ops: ".778",
+    },
+  },
+  // ── p021 Yoshinobu Yamamoto (P/LAD) ──────────────────────────────────────
+  p021: {
+    koreanName: "야마모토 요시노부",
+    status: "Active",
+    pitcherStats: {
+      season: 2026, wins: 9, losses: 5, era: "3.45",
+      gamesPlayed: 16, gamesStarted: 16, inningsPitched: "96.1",
+      strikeouts: 110, walks: 22, hits: 82, homeRuns: 11,
+      whip: "1.08", saves: 0,
+    },
+    recentGameLog: [
+      { gameDate: "2026-06-17", opponent: "ATL", inningsPitched: "4.0", earnedRuns: 4, pitchingStrikeouts: 5, pitchingWalks: 1, result: "L" },
+      { gameDate: "2026-06-11", opponent: "ARI", inningsPitched: "7.0", earnedRuns: 1, pitchingStrikeouts: 8, pitchingWalks: 0, result: "W" },
+      { gameDate: "2026-06-05", opponent: "PHX", inningsPitched: "6.1", earnedRuns: 2, pitchingStrikeouts: 7, pitchingWalks: 1, result: "W" },
+      { gameDate: "2026-05-29", opponent: "COL", inningsPitched: "6.0", earnedRuns: 3, pitchingStrikeouts: 6, pitchingWalks: 2, result: "ND" },
+      { gameDate: "2026-05-23", opponent: "NYM", inningsPitched: "7.0", earnedRuns: 0, pitchingStrikeouts: 9, pitchingWalks: 1, result: "W" },
+    ],
+  },
+};
+
+export function getEnrichedPlayer(playerId: string): AppPlayerDetail | null {
+  const base = DUMMY_PLAYERS.find((p) => p.id === playerId);
+  if (!base) return null;
+  const extras = PLAYER_EXTRAS[playerId];
+  return extras ? { ...base, ...extras } : base;
+}
+
+export function getEnrichedPlayers(): AppPlayerDetail[] {
+  return DUMMY_PLAYERS.map((p) => {
+    const extras = PLAYER_EXTRAS[p.id];
+    return extras ? { ...p, ...extras } : p;
+  });
+}
