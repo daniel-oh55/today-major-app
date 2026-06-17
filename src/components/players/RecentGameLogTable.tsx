@@ -36,7 +36,7 @@ export function RecentGameLogTable({ gameLog, isPitcher }: RecentGameLogTablePro
             <tbody className="divide-y divide-gray-50">
               {gameLog.map((log, i) => (
                 <tr key={i}>
-                  <td className="py-2 px-3 text-gray-500 tabular-nums">{log.gameDate}</td>
+                  <th scope="row" className="py-2 px-3 text-left text-gray-500 tabular-nums font-normal">{log.gameDate}</th>
                   <td className="py-2 px-2 text-center font-semibold text-gray-700">{log.opponent}</td>
                   <td className="py-2 px-2 text-right text-gray-600 tabular-nums">{log.inningsPitched ?? "–"}</td>
                   <td className="py-2 px-2 text-right text-gray-600 tabular-nums">{log.earnedRuns ?? "–"}</td>
@@ -70,7 +70,7 @@ export function RecentGameLogTable({ gameLog, isPitcher }: RecentGameLogTablePro
             <tbody className="divide-y divide-gray-50">
               {gameLog.map((log, i) => (
                 <tr key={i}>
-                  <td className="py-2 px-3 text-gray-500 tabular-nums">{log.gameDate}</td>
+                  <th scope="row" className="py-2 px-3 text-left text-gray-500 tabular-nums font-normal">{log.gameDate}</th>
                   <td className="py-2 px-2 text-center font-semibold text-gray-700">{log.opponent}</td>
                   <td className="py-2 px-2 text-right text-gray-600 tabular-nums">{log.atBats ?? "–"}</td>
                   <td className="py-2 px-2 text-right text-gray-600 tabular-nums">{log.runs ?? "–"}</td>

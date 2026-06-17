@@ -1,7 +1,7 @@
 import type { AppGame, AppGameCenter, AppLineScoreInning, AppGameEvent, AppLineupEntry, AppBoxScorePlayer } from "../../models/game";
-import type { AppPlayerDetail } from "../../models/player";
+import type { AppPlayerDetail, AppPlayerStatus } from "../../models/player";
 import type { AppHitterSeasonStats, AppPitcherSeasonStats, AppPlayerRecentGameLog } from "../../models/stats";
-import type { AppTeam, AppTeamDetail } from "../../models/team";
+import type { AppTeam, AppTeamDetail, AppRosterPlayer, AppTeamSeasonStats, AppTeamRecentGame } from "../../models/team";
 import { getTodayKst } from "../../utils/koreaTime";
 
 // ─── 팀 ──────────────────────────────────────────────────────────────────────
@@ -51,6 +51,16 @@ export const DUMMY_PLAYERS: AppPlayerDetail[] = [
   { id: "p024", providerRef: { providerId: "dummy", externalId: "p024" }, fullName: "Rafael Devers",     firstName: "Rafael",   lastName: "Devers",     jerseyNumber: "11", position: "3B", teamId: "bos", teamName: "Red Sox",  batHand: "L", throwHand: "R", birthDate: "1996-10-24", nationality: "DOM", height: "6-0", weight: "237", mlbDebutDate: "2017-07-25" },
   { id: "p025", providerRef: { providerId: "dummy", externalId: "p025" }, fullName: "Triston Casas",     firstName: "Triston",  lastName: "Casas",      jerseyNumber: "36", position: "1B", teamId: "bos", teamName: "Red Sox",  batHand: "L", throwHand: "L", birthDate: "2000-01-15", nationality: "USA", height: "6-4", weight: "252", mlbDebutDate: "2022-09-27" },
   { id: "p026", providerRef: { providerId: "dummy", externalId: "p026" }, fullName: "Grayson Rodriguez", firstName: "Grayson",  lastName: "Rodriguez",  jerseyNumber: "30", position: "P",  teamId: "bos", teamName: "Red Sox",  batHand: "R", throwHand: "R", birthDate: "2000-11-16", nationality: "USA", height: "6-5", weight: "220", mlbDebutDate: "2023-04-05" },
+
+  // ── NYY 추가 선수 (p027–p030) ─────────────────────────────────────────────
+  { id: "p027", providerRef: { providerId: "dummy", externalId: "p027" }, fullName: "DJ LeMahieu",       firstName: "DJ",       lastName: "LeMahieu",   jerseyNumber: "26", position: "3B", teamId: "nyy", teamName: "Yankees",  batHand: "R", throwHand: "R", birthDate: "1988-07-13", nationality: "USA", height: "6-4", weight: "215", mlbDebutDate: "2011-09-13" },
+  { id: "p028", providerRef: { providerId: "dummy", externalId: "p028" }, fullName: "Carlos Rodón",      firstName: "Carlos",   lastName: "Rodón",      jerseyNumber: "55", position: "P",  teamId: "nyy", teamName: "Yankees",  batHand: "R", throwHand: "L", birthDate: "1992-12-10", nationality: "USA", height: "6-3", weight: "245", mlbDebutDate: "2015-04-21" },
+  { id: "p029", providerRef: { providerId: "dummy", externalId: "p029" }, fullName: "Harrison Bader",    firstName: "Harrison", lastName: "Bader",      jerseyNumber: "12", position: "CF", teamId: "nyy", teamName: "Yankees",  batHand: "R", throwHand: "R", birthDate: "1994-06-03", nationality: "USA", height: "6-0", weight: "195", mlbDebutDate: "2017-08-25" },
+  { id: "p030", providerRef: { providerId: "dummy", externalId: "p030" }, fullName: "Clay Holmes",       firstName: "Clay",     lastName: "Holmes",     jerseyNumber: "35", position: "P",  teamId: "nyy", teamName: "Yankees",  batHand: "R", throwHand: "R", birthDate: "1993-03-27", nationality: "USA", height: "6-5", weight: "245", mlbDebutDate: "2018-09-03" },
+
+  // ── ATL 추가 선수 (p031–p032) ─────────────────────────────────────────────
+  { id: "p031", providerRef: { providerId: "dummy", externalId: "p031" }, fullName: "Travis d'Arnaud",   firstName: "Travis",   lastName: "d'Arnaud",   jerseyNumber: "16", position: "C",  teamId: "atl", teamName: "Braves",   batHand: "R", throwHand: "R", birthDate: "1989-02-10", nationality: "USA", height: "6-2", weight: "210", mlbDebutDate: "2013-04-28" },
+  { id: "p032", providerRef: { providerId: "dummy", externalId: "p032" }, fullName: "Marcell Ozuna",     firstName: "Marcell",  lastName: "Ozuna",      jerseyNumber: "20", position: "DH", teamId: "atl", teamName: "Braves",   batHand: "R", throwHand: "R", birthDate: "1990-11-12", nationality: "DOM", height: "6-1", weight: "230", mlbDebutDate: "2013-05-13" },
 ];
 
 const playerMap = Object.fromEntries(DUMMY_PLAYERS.map((p) => [p.id, p]));
@@ -291,10 +301,81 @@ export function getDummyGameCenter(gameId: string): AppGameCenter | null {
 
 // ─── 팀 상세 ─────────────────────────────────────────────────────────────────
 
+function makeRoster(playerIds: string[]): AppRosterPlayer[] {
+  return playerIds.flatMap((id) => {
+    const p = playerMap[id];
+    if (!p) return [];
+    return [{ playerId: p.id, fullName: p.fullName, jerseyNumber: p.jerseyNumber, position: p.position, batHand: p.batHand, throwHand: p.throwHand }];
+  });
+}
+
+const NYY_STATS: AppTeamSeasonStats = {
+  season: 2026, teamAvg: ".261", teamOps: ".782", runs: 312, homeRuns: 108,
+  teamEra: "3.42", teamWhip: "1.19", runsAllowed: 254,
+};
+
+const LAD_STATS: AppTeamSeasonStats = {
+  season: 2026, teamAvg: ".271", teamOps: ".798", runs: 342, homeRuns: 120,
+  teamEra: "3.18", teamWhip: "1.12", runsAllowed: 228,
+};
+
+const ATL_STATS: AppTeamSeasonStats = {
+  season: 2026, teamAvg: ".265", teamOps: ".776", runs: 290, homeRuns: 98,
+  teamEra: "3.75", teamWhip: "1.22", runsAllowed: 272,
+};
+
+const NYY_RECENT: AppTeamRecentGame[] = [
+  { gameDate: "2026-06-17", opponent: "BOS", homeScore: 5, awayScore: 3, isHome: true,  result: "W" },
+  { gameDate: "2026-06-15", opponent: "BOS", homeScore: 4, awayScore: 6, isHome: true,  result: "L" },
+  { gameDate: "2026-06-13", opponent: "TOR", homeScore: 3, awayScore: 1, isHome: false, result: "W" },
+  { gameDate: "2026-06-11", opponent: "TOR", homeScore: 7, awayScore: 5, isHome: false, result: "W" },
+  { gameDate: "2026-06-09", opponent: "SEA", homeScore: 2, awayScore: 5, isHome: false, result: "L" },
+];
+
+const LAD_RECENT: AppTeamRecentGame[] = [
+  { gameDate: "2026-06-17", opponent: "ATL", homeScore: 2, awayScore: 4, isHome: true,  result: "L" },
+  { gameDate: "2026-06-15", opponent: "SDP", homeScore: 6, awayScore: 3, isHome: true,  result: "W" },
+  { gameDate: "2026-06-13", opponent: "SDP", homeScore: 4, awayScore: 2, isHome: true,  result: "W" },
+  { gameDate: "2026-06-11", opponent: "ARI", homeScore: 8, awayScore: 1, isHome: false, result: "W" },
+  { gameDate: "2026-06-09", opponent: "ARI", homeScore: 3, awayScore: 5, isHome: false, result: "L" },
+];
+
+const ATL_RECENT: AppTeamRecentGame[] = [
+  { gameDate: "2026-06-17", opponent: "LAD", homeScore: 4, awayScore: 2, isHome: false, result: "W" },
+  { gameDate: "2026-06-15", opponent: "NYM", homeScore: 5, awayScore: 3, isHome: true,  result: "W" },
+  { gameDate: "2026-06-13", opponent: "NYM", homeScore: 2, awayScore: 4, isHome: true,  result: "L" },
+  { gameDate: "2026-06-11", opponent: "MIA", homeScore: 7, awayScore: 2, isHome: false, result: "W" },
+  { gameDate: "2026-06-09", opponent: "MIA", homeScore: 1, awayScore: 3, isHome: false, result: "L" },
+];
+
 export const DUMMY_TEAM_DETAILS: AppTeamDetail[] = [
-  { ...teamMap["nyy"], record: { wins: 42, losses: 28, pct: 0.600, gbDivision: "-" },   rosterPlaceholder: true },
-  { ...teamMap["lad"], record: { wins: 45, losses: 24, pct: 0.652, gbDivision: "-" },   rosterPlaceholder: true },
-  { ...teamMap["atl"], record: { wins: 38, losses: 32, pct: 0.543, gbDivision: "7.0" }, rosterPlaceholder: true },
+  {
+    ...teamMap["nyy"],
+    venue: "Yankee Stadium",
+    record: { wins: 42, losses: 28, pct: 0.600, gbDivision: "-" },
+    seasonStats: NYY_STATS,
+    roster: makeRoster(["p001","p003","p022","p023","p027","p028","p029","p030"]),
+    keyPlayerIds: ["p001","p003","p022","p023"],
+    recentGames: NYY_RECENT,
+  },
+  {
+    ...teamMap["lad"],
+    venue: "Dodger Stadium",
+    record: { wins: 45, losses: 24, pct: 0.652, gbDivision: "-" },
+    seasonStats: LAD_STATS,
+    roster: makeRoster(["p002","p004","p007","p013","p014","p015","p016","p021"]),
+    keyPlayerIds: ["p002","p004","p007","p021"],
+    recentGames: LAD_RECENT,
+  },
+  {
+    ...teamMap["atl"],
+    venue: "Truist Park",
+    record: { wins: 38, losses: 32, pct: 0.543, gbDivision: "7.0" },
+    seasonStats: ATL_STATS,
+    roster: makeRoster(["p006","p008","p017","p018","p019","p020","p031","p032"]),
+    keyPlayerIds: ["p006","p008","p017","p018"],
+    recentGames: ATL_RECENT,
+  },
 ];
 
 export { playerMap, teamMap };
@@ -303,7 +384,7 @@ export { playerMap, teamMap };
 
 type PlayerExtras = {
   koreanName?: string;
-  status?: string;
+  status?: AppPlayerStatus;
   hitterStats?: AppHitterSeasonStats;
   pitcherStats?: AppPitcherSeasonStats;
   recentGameLog?: AppPlayerRecentGameLog[];

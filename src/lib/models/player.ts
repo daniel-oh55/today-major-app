@@ -24,12 +24,14 @@ export interface AppPlayer {
   nationality?: string;
 }
 
+export type AppPlayerStatus = "Active" | "Injured" | "Inactive" | "Unknown";
+
 export interface AppPlayerDetail extends AppPlayer {
   height?: string;
   weight?: string;
   mlbDebutDate?: string;
   koreanName?: string;
-  status?: string;                          // "Active", "IL-10", etc.
+  status?: AppPlayerStatus;
   hitterStats?: AppHitterSeasonStats;
   pitcherStats?: AppPitcherSeasonStats;
   recentGameLog?: AppPlayerRecentGameLog[];
