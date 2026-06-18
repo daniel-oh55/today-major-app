@@ -9,6 +9,9 @@ import { RosterTable } from "@/components/teams/RosterTable";
 import { TeamRecentGames } from "@/components/teams/TeamRecentGames";
 import { TeamKeyPlayers } from "@/components/teams/TeamKeyPlayers";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
+import { ShareButton } from "@/components/share/ShareButton";
+import { TeamShareCard } from "@/components/share/TeamShareCard";
+import { buildTeamShareText } from "@/lib/utils/shareText";
 import { notFound } from "next/navigation";
 
 export default async function TeamDetailPage({ params }: { params: Promise<{ teamId: string }> }) {
@@ -27,8 +30,9 @@ export default async function TeamDetailPage({ params }: { params: Promise<{ tea
     )
   ).then((results) => results.filter((p) => p !== null));
 
-  const winPct = (team.record.pct * 100).toFixed(1);
+  const winPct       = (team.record.pct * 100).toFixed(1);
   const leagueDivision = `${team.league} · ${team.division}`;
+  const sharePayload = buildTeamShareText(team);
 
   return (
     <div className="flex flex-col gap-0 pb-6">
@@ -94,6 +98,14 @@ export default async function TeamDetailPage({ params }: { params: Promise<{ tea
       {team.recentGames && team.recentGames.length > 0 && (
         <TeamRecentGames recentGames={team.recentGames} teamAbbr={team.abbreviation} />
       )}
+
+      {/* ── 팀 정보 공유 ── */}
+      <Section title="팀 정보 공유">
+        <TeamShareCard team={team} />
+        <div className="mt-2">
+          <ShareButton payload={sharePayload} />
+        </div>
+      </Section>
 
       {/* ── 비공식 안내 ── */}
       <DataSourceNotice />

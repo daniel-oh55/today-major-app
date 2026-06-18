@@ -6,6 +6,9 @@ import { LineupTable } from "@/components/games/LineupTable";
 import { BoxScoreTable } from "@/components/games/BoxScoreTable";
 import { GameEventList } from "@/components/games/GameEventList";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ShareButton } from "@/components/share/ShareButton";
+import { GameShareCard } from "@/components/share/GameShareCard";
+import { buildGameShareText } from "@/lib/utils/shareText";
 import { notFound } from "next/navigation";
 
 export const revalidate = 30;
@@ -21,11 +24,18 @@ export default async function GameDetailPage({ params }: { params: Promise<{ gam
   }
 
   const { game, lineScore, currentMatchup, homeLineup, awayLineup, homeBoxScore, awayBoxScore, events } = center;
-  const isLive = game.status === "live";
+  const isLive       = game.status === "live";
+  const sharePayload = buildGameShareText(center);
 
   return (
     <div className="flex flex-col gap-0 pb-6">
       <Scoreboard game={game} />
+
+      {/* ── 경기 공유 ── */}
+      <div className="px-4 py-3 flex flex-col gap-2">
+        <GameShareCard game={game} events={events} />
+        <ShareButton payload={sharePayload} />
+      </div>
 
       {isLive && currentMatchup && (
         <CurrentMatchup

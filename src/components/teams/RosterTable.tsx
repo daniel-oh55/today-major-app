@@ -37,7 +37,7 @@ export function RosterTable({ roster, teamName }: RosterTableProps) {
                 <td className="py-2.5 px-3 text-center text-gray-400 tabular-nums text-xs font-medium">
                   {player.jerseyNumber}
                 </td>
-                <td className="py-2.5 px-3">
+                <th scope="row" className="py-2.5 px-3 text-left font-normal">
                   <Link
                     href={`/players/${player.playerId}`}
                     className="font-medium text-gray-900 hover:text-blue-600 transition-colors"
@@ -45,7 +45,7 @@ export function RosterTable({ roster, teamName }: RosterTableProps) {
                   >
                     {player.fullName}
                   </Link>
-                </td>
+                </th>
                 <td className="py-2.5 px-2 text-center">
                   <span className="inline-block bg-gray-100 text-gray-600 text-xs font-semibold rounded px-1.5 py-0.5">
                     {player.position}
