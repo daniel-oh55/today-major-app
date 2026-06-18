@@ -1,8 +1,12 @@
 import { getPlayer } from "@/lib/services/playerService";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { Section } from "@/components/common/Section";
 import { PlayerStatSummary } from "@/components/players/PlayerStatSummary";
 import { RecentGameLogTable } from "@/components/players/RecentGameLogTable";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
+import { ShareButton } from "@/components/share/ShareButton";
+import { PlayerShareCard } from "@/components/share/PlayerShareCard";
+import { buildPlayerShareText } from "@/lib/utils/shareText";
 import { notFound } from "next/navigation";
 
 const NATIONALITY_LABEL: Record<string, string> = {
@@ -11,7 +15,7 @@ const NATIONALITY_LABEL: Record<string, string> = {
 };
 
 function BatThrowLabel({ batHand, throwHand }: { batHand: string; throwHand: string }) {
-  const bat   = batHand   === "S" ? "양타" : batHand   === "L" ? "좌타" : "우타";
+  const bat    = batHand   === "S" ? "양타" : batHand   === "L" ? "좌타" : "우타";
   const throw_ = throwHand === "L" ? "좌투" : "우투";
   return <>{bat} / {throw_}</>;
 }
@@ -26,8 +30,9 @@ export default async function PlayerDetailPage({ params }: { params: Promise<{ p
     notFound();
   }
 
-  const isPitcher = player.position === "P";
-  const hasLog    = (player.recentGameLog?.length ?? 0) > 0;
+  const isPitcher   = player.position === "P";
+  const hasLog      = (player.recentGameLog?.length ?? 0) > 0;
+  const sharePayload = buildPlayerShareText(player);
 
   return (
     <div className="flex flex-col gap-0 pb-6">
@@ -125,27 +130,13 @@ export default async function PlayerDetailPage({ params }: { params: Promise<{ p
         </div>
       )}
 
-      {/* ── 공유 버튼 placeholder ── */}
-      <div className="px-4 pt-2">
-        <button
-          type="button"
-          disabled
-          className="w-full border border-gray-200 rounded-xl py-3 text-sm text-gray-400 font-medium flex items-center justify-center gap-2"
-          aria-label="기록 카드 공유 (준비 중)"
-        >
-          <svg
-            width="16" height="16" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" strokeWidth="2"
-            strokeLinecap="round" strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
-            <polyline points="16 6 12 2 8 6"/>
-            <line x1="12" y1="2" x2="12" y2="15"/>
-          </svg>
-          기록 카드 공유 (준비 중)
-        </button>
-      </div>
+      {/* ── 기록 카드 공유 ── */}
+      <Section title="기록 카드 공유">
+        <PlayerShareCard player={player} />
+        <div className="mt-2">
+          <ShareButton payload={sharePayload} />
+        </div>
+      </Section>
     </div>
   );
 }

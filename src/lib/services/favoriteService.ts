@@ -18,7 +18,11 @@ function readIds(key: string): string[] {
 }
 
 function writeIds(key: string, ids: string[]): void {
-  localStorage.setItem(key, JSON.stringify(ids));
+  try {
+    localStorage.setItem(key, JSON.stringify(ids));
+  } catch {
+    // localStorage 용량 초과 또는 private 모드 제한 시 silently ignore
+  }
 }
 
 export const favoriteService = {
