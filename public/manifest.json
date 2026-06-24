@@ -1,0 +1,11 @@
+{
+  "name": "오늘의 메이저",
+  "short_name": "메이저",
+  "description": "한국어로 확인하는 미국 프로야구 경기·선수 기록 앱 (비공식 팬앱)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e3a5f",
+  "theme_color": "#1e3a5f",
+  "lang": "ko",
+  "orientation": "portrait"
+}

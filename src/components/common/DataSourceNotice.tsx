@@ -11,11 +11,11 @@ export function DataSourceNotice({ metadata = PROVIDER_METADATA.dummy }: DataSou
   return (
     <div className="px-4 py-3 border-t border-gray-100 bg-gray-50">
       <p className="text-xs text-gray-400 leading-relaxed">
-        이 서비스는 공식 MLB 앱이 아닙니다. {metadata.attributionText} 로고·선수 사진·영상은 제공하지 않습니다.
+        비공식 팬앱 — MLB, MLBAM 및 각 구단과 무관합니다. 로고·선수 사진·영상은 제공하지 않습니다.
       </p>
       {!metadata.isCommercialReady && (
         <p className="text-xs text-amber-500 mt-1">
-          ⚠ 데이터 출처: {metadata.label}
+          ⚠ 현재 데이터: {metadata.label} — 상업 API 계약 전 더미 데이터 기준
         </p>
       )}
     </div>

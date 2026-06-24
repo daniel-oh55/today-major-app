@@ -5,7 +5,7 @@ interface AppHeaderProps {
   backHref?: string;
 }
 
-export function AppHeader({ title = "MLB 경기", backHref }: AppHeaderProps) {
+export function AppHeader({ title = "오늘의 메이저", backHref }: AppHeaderProps) {
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-200 flex items-center h-12 px-4 gap-3">
       {backHref && (

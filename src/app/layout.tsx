@@ -5,9 +5,10 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { BottomNav } from "@/components/layout/BottomNav";
 
 export const metadata: Metadata = {
-  title: "MLB 경기 정보",
-  description: "미국 프로야구(MLB) 경기 일정, 스코어, 선수 기록을 확인하세요. 비공식 앱입니다.",
+  title: "오늘의 메이저",
+  description: "한국어로 확인하는 미국 프로야구 경기·선수 기록 앱 (비공식 팬앱)",
   manifest: "/manifest.json",
+  robots: "noindex",
 };
 
 export const viewport: Viewport = {
