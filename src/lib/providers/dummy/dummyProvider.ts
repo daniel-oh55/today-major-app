@@ -1,11 +1,14 @@
 import type { BaseballDataProvider, GetGamesByDateParams, GetGameCenterParams, SearchPlayersParams, GetPlayerParams, GetTeamParams } from "../types";
+import type { ProviderMetadata } from "../metadata";
 import type { AppGame, AppGameCenter } from "../../models/game";
 import type { AppPlayerDetail } from "../../models/player";
 import type { AppTeamDetail } from "../../models/team";
+import { PROVIDER_METADATA } from "../metadata";
 import { getTodayKst } from "../../utils/koreaTime";
 import { getDummyGames, getDummyGameCenter, getEnrichedPlayer, getEnrichedPlayers, DUMMY_TEAM_DETAILS } from "./dummyData";
 
 export class DummyProvider implements BaseballDataProvider {
+  readonly metadata: ProviderMetadata = PROVIDER_METADATA.dummy;
   async getGamesByDate({ dateKst }: GetGamesByDateParams): Promise<AppGame[]> {
     return getDummyGames(dateKst);
   }

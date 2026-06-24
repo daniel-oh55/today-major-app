@@ -27,7 +27,7 @@
 | `team_detail_mid_native` | 팀 상세 중간 | native | ✓ |
 | `share_complete_interstitial` | 공유 완료 후 | interstitial | 인라인만 ✓ |
 | `search_result_inline` | 검색 결과 인라인 | native | ✓ |
-| `favorite_home_inline` | 즐겨찾기·홈 인라인 | native | ✓ |
+| `favorite_home_inline` | 즐겨찾기 페이지 인라인 | native | ✓ |
 
 ---
 

@@ -90,8 +90,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 | `player_detail_mid_native` | 선수 상세 중간 | 네이티브 |
 | `team_detail_mid_native` | 팀 상세 중간 | 네이티브 |
 | `search_result_inline` | 검색 결과 인라인 | 네이티브 |
-| `share_complete_interstitial` | 공유 완료 후 (인라인) | — |
-| `favorite_home_inline` | 즐겨찾기·홈 인라인 | 네이티브 |
+| `share_complete_interstitial` | 공유 완료 후 (인라인) | interstitial |
+| `favorite_home_inline` | 즐겨찾기 페이지 인라인 | 네이티브 |
 
 > **경기센터는 하단 배너(`gamecenter_bottom_banner`) 1개만 허용합니다.** 중간 네이티브·전면광고 금지.
 >
@@ -146,6 +146,19 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] 광고 빈도 제한 구조 (`frequencyCap.ts`)
 - [x] 화면별 광고 정책 (`AD_DISPLAY_POLICY`)
 - [x] 광고 정책 문서 (`docs/ads-policy.md`)
+
+### Phase 7
+- [x] Provider metadata 구조 (`ProviderMetadata`, `ProviderId`, `PROVIDER_METADATA`)
+- [x] Provider registry (`src/lib/providers/registry.ts`) + 안전한 fallback 처리
+- [x] Skeleton provider 추가 (SportsDataIO, Sportradar)
+- [x] Provider error 표준화 (`AppDataError`, `ProviderErrorKind`, `toSafeClientMessage`)
+- [x] Provider call wrapper (`wrapProviderCall.ts`) — API usage 로깅 포함
+- [x] Cache 구조 (`CachePolicy`, `CacheKeys`, `CacheService` interface + in-memory 구현)
+- [x] API usage tracking skeleton (`src/lib/monitoring/apiUsage.ts`)
+- [x] DataSourceNotice provider metadata 기반 동작
+- [x] ProviderBadge 서버 컴포넌트
+- [x] 상업 API 계약 전 체크리스트 (`docs/commercial-api-checklist.md`)
+- [x] Provider 연동 계획 문서 (`docs/provider-integration-plan.md`)
 
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)

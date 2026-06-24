@@ -1,6 +1,9 @@
+import type { ProviderMetadata } from "./metadata";
 import type { AppGame, AppGameCenter } from "../models/game";
 import type { AppPlayerDetail } from "../models/player";
 import type { AppTeamDetail } from "../models/team";
+
+export type { ProviderMetadata } from "./metadata";
 
 export interface GetGamesByDateParams {
   dateKst: string; // "2025-06-17"
@@ -24,6 +27,7 @@ export interface GetTeamParams {
 }
 
 export interface BaseballDataProvider {
+  readonly metadata: ProviderMetadata;
   getGamesByDate(params: GetGamesByDateParams): Promise<AppGame[]>;
   getGameCenter(params: GetGameCenterParams): Promise<AppGameCenter>;
   searchPlayers(params: SearchPlayersParams): Promise<AppPlayerDetail[]>;
