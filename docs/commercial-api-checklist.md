@@ -66,6 +66,7 @@
 ## 2. API 후보별 메모
 
 > 아래는 각 후보 API에 대한 검토 메모입니다. 내용은 확인 필요 상태이며, 실제 약관과 다를 수 있습니다.
+> 세부 평가 항목은 `docs/api-provider-evaluation.md`를 참고하세요.
 
 ### BALLDONTLIE
 

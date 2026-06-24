@@ -7,7 +7,8 @@ export type ProviderId =
   | "balldontlie_skeleton"
   | "mysportsfeeds_skeleton"
   | "sportsdataio_skeleton"
-  | "sportradar_skeleton";
+  | "sportradar_skeleton"
+  | "rolling_insights_skeleton";
 
 export interface ProviderMetadata {
   id: ProviderId;
@@ -82,6 +83,19 @@ export const PROVIDER_METADATA: Record<ProviderId, ProviderMetadata> = {
     isOfficial: false,
     isCommercialReady: false,
     attributionText: "Sportradar API — 계약 및 약관 검토 필요. 아직 연동되지 않았습니다.",
+    termsStatus: "review_required",
+    supportsLiveGames: false,
+    supportsLineups: false,
+    supportsBoxScore: false,
+    supportsPlayerStats: false,
+    supportsTeamStats: false,
+  },
+  rolling_insights_skeleton: {
+    id: "rolling_insights_skeleton",
+    label: "Rolling Insights (미연동)",
+    isOfficial: false,
+    isCommercialReady: false,
+    attributionText: "DataFeeds by Rolling Insights API — 계약 및 약관 검토 필요. 아직 연동되지 않았습니다.",
     termsStatus: "review_required",
     supportsLiveGames: false,
     supportsLineups: false,
