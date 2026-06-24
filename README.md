@@ -219,6 +219,20 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] `docs/mvp-qa-checklist.md` 추가 — 14개 항목, 체크박스 형태 QA 가이드
 - [x] `docs/provider-integration-plan.md` Phase 9/10 기준으로 업데이트
 
+### Phase 11
+- [x] PWA 아이콘 생성 (`public/icons/`) — 자체 디자인 (네이비+흰색 원+"M"), 외부 로고 없음
+- [x] manifest.json icons 설정 (192px·512px·maskable 4종)
+- [x] manifest `short_name: "오늘메이저"` 추가
+- [x] layout.tsx — Apple Web App meta (`appleWebApp`, `apple-touch-icon`) 추가
+- [x] BottomNav `aria-current="page"` 접근성 개선
+- [x] DataSourceNotice에 개인정보처리방침·이용약관·데이터 안내 링크 추가
+- [x] `/privacy` — 개인정보처리방침 임시 안내 페이지
+- [x] `/terms` — 이용약관 임시 안내 페이지
+- [x] `/data-notice` — 데이터 안내 페이지
+- [x] `docs/release-candidate-checklist.md` — RC 배포 전 15개 항목 체크리스트
+- [x] `docs/deployment-checklist.md` — Vercel 배포 절차 및 환경변수 가이드
+- [x] `scripts/generate-icons.mjs` — 아이콘 생성 스크립트 (Node.js 내장 zlib, 외부 의존성 없음)
+
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)
 - 한국어 문자중계 / AI 요약 기능
@@ -239,7 +253,8 @@ MVP 기능은 구현되어 있으나, 실제 사용자에게 배포하기 전에
 | 데이터 출처 고지 | 계약 API의 출처 표기 의무 확인 |
 | 개인정보 처리방침 | 광고 SDK 사용 시 개인정보 수집 고지 의무 |
 | 앱스토어/플레이스토어 정책 | PWA 또는 네이티브 배포 시 별도 정책 확인 |
-| PWA 아이콘 | `public/manifest.json`에 아이콘 경로 추가 (자체 디자인, MLB 로고 사용 금지) |
+| PWA 아이콘 최종 디자인 | 현재 자체 placeholder 아이콘 사용 중 — 서비스 전 최종 디자인으로 교체 |
+| 법률 문서 확정 | `/privacy`, `/terms` 현재 임시 안내 — 법률 전문가 검토 후 확정 필요 |
 
 ---
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ProviderMetadata } from "@/lib/providers/metadata";
 import { PROVIDER_METADATA } from "@/lib/providers/metadata";
 
@@ -18,6 +19,11 @@ export function DataSourceNotice({ metadata = PROVIDER_METADATA.dummy }: DataSou
           ⚠ 현재 데이터: {metadata.label} — 상업 API 계약 전 더미 데이터 기준
         </p>
       )}
+      <div className="flex gap-4 mt-2 flex-wrap">
+        <Link href="/privacy"     className="text-xs text-gray-300 hover:text-gray-400 transition-colors">개인정보처리방침</Link>
+        <Link href="/terms"       className="text-xs text-gray-300 hover:text-gray-400 transition-colors">이용약관</Link>
+        <Link href="/data-notice" className="text-xs text-gray-300 hover:text-gray-400 transition-colors">데이터 안내</Link>
+      </div>
     </div>
   );
 }
