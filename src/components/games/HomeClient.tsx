@@ -2,6 +2,7 @@
 
 import { Fragment, useState } from "react";
 import type { AppGame } from "@/lib/models/game";
+import type { ProviderMetadata } from "@/lib/providers/metadata";
 import { GameCard } from "@/components/games/GameCard";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -17,6 +18,7 @@ import { useFavorites } from "@/lib/hooks/useFavorites";
 interface HomeClientProps {
   games: AppGame[];
   dateKst: string;
+  providerMeta?: ProviderMetadata;
 }
 
 const FILTER_TABS: { value: StatusFilter; label: string }[] = [
@@ -26,7 +28,7 @@ const FILTER_TABS: { value: StatusFilter; label: string }[] = [
   { value: "final",     label: "종료" },
 ];
 
-export function HomeClient({ games, dateKst }: HomeClientProps) {
+export function HomeClient({ games, dateKst, providerMeta }: HomeClientProps) {
   const [filter, setFilter] = useState<StatusFilter>("all");
   const { teamIds, mounted } = useFavorites();
 
@@ -145,7 +147,7 @@ export function HomeClient({ games, dateKst }: HomeClientProps) {
       </section>
 
       {/* ── 비공식 안내 ── */}
-      <DataSourceNotice />
+      <DataSourceNotice metadata={providerMeta} />
     </div>
   );
 }
