@@ -1,20 +1,23 @@
-import type { AdPlacement } from "@/lib/config/ads";
-import { AD_CONFIG } from "@/lib/config/ads";
+import type { AdRenderInstruction } from "@/lib/ads/types";
 
 interface AdPlaceholderProps {
-  placement: AdPlacement;
+  instruction: Extract<AdRenderInstruction, { type: "placeholder" }>;
   className?: string;
 }
 
-export function AdPlaceholder({ placement, className = "" }: AdPlaceholderProps) {
-  const config = AD_CONFIG[placement];
+export function AdPlaceholder({ instruction, className = "" }: AdPlaceholderProps) {
+  const isDev = process.env.NODE_ENV === "development";
+
   return (
     <div
-      className={`w-full ${config.heightClass} flex items-center justify-center bg-gray-100 border border-dashed border-gray-300 rounded ${className}`}
-      aria-label={`광고 영역: ${config.label}`}
+      style={{ height: instruction.reservedHeight }}
+      className={`w-full flex items-center justify-center bg-gray-50 border border-dashed border-gray-200 rounded ${className}`}
+      aria-label={`광고 영역: ${instruction.label}`}
       role="complementary"
     >
-      <span className="text-xs text-gray-400 select-none">광고 {config.label}</span>
+      <span className="text-xs text-gray-400 select-none pointer-events-none">
+        {isDev ? `[광고 슬롯] ${instruction.placement}` : `광고 ${instruction.label}`}
+      </span>
     </div>
   );
 }
