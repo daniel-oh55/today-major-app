@@ -60,7 +60,7 @@ AdSlot (컴포넌트) → getAdProvider() → AdProvider (interface)
 
 ```bash
 # .env.local (서버 전용 — 클라이언트에 노출되지 않음)
-BASEBALL_DATA_PROVIDER=dummy     # dummy | balldontlie | mysportsfeeds
+BASEBALL_DATA_PROVIDER=dummy     # dummy | balldontlie_skeleton | mysportsfeeds_skeleton | sportsdataio_skeleton | sportradar_skeleton
 BASEBALL_API_KEY=                # 실제 API Key (서버 전용)
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { searchPlayers } from "@/lib/services/playerService";
+import { logApiRouteError } from "@/lib/monitoring/safeLogger";
 
 const DEFAULT_LIMIT = 20;
 const MIN_LIMIT = 1;
@@ -24,7 +25,7 @@ export async function GET(req: Request) {
     const players = await searchPlayers(query, limit);
     return NextResponse.json(players);
   } catch (err) {
-    console.error("[api/players/search] Failed to search players:", err);
+    logApiRouteError("players.search", err);
     return NextResponse.json({ error: "Failed to search players" }, { status: 500 });
   }
 }
