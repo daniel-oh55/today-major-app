@@ -1,6 +1,8 @@
 "use client";
 
-import type { AdPlacement } from "@/lib/config/ads";
+import type { AdPlacement } from "@/lib/models/ad";
+import { AD_SLOT_CONFIGS } from "@/lib/config/ads";
+import { getAdProvider } from "@/lib/ads";
 import { AdPlaceholder } from "./AdPlaceholder";
 
 interface AdSlotProps {
@@ -8,8 +10,19 @@ interface AdSlotProps {
   className?: string;
 }
 
-// AdSlot: 실제 광고 SDK 연동 전까지 placeholder를 표시합니다.
-// SDK 연동 시 이 컴포넌트 내부에서만 초기화하면 됩니다.
+// AdSlot: placement config → ad provider → render instruction 순으로 처리합니다.
+// 실제 SDK 연동 시 getAdProvider()가 반환하는 provider만 교체하면 됩니다.
 export function AdSlot({ placement, className }: AdSlotProps) {
-  return <AdPlaceholder placement={placement} className={className} />;
+  const config = AD_SLOT_CONFIGS[placement];
+
+  if (!config.enabled) {
+    // 레이아웃 시프트 방지용 빈 공간
+    return <div style={{ height: config.reservedHeight }} aria-hidden="true" />;
+  }
+
+  const instruction = getAdProvider().renderSlot(config);
+
+  if (instruction.type === "none") return null;
+
+  return <AdPlaceholder instruction={instruction} className={className} />;
 }
