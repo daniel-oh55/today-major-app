@@ -116,9 +116,6 @@ export function HomeClient({ games, dateKst }: HomeClientProps) {
               <GameCard key={game.id} game={game} />
             ))}
           </div>
-          <div className="mt-2">
-            <AdSlot placement="favorite_home_inline" />
-          </div>
         </section>
       )}
 

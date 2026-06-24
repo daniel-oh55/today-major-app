@@ -90,8 +90,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 | `player_detail_mid_native` | 선수 상세 중간 | 네이티브 |
 | `team_detail_mid_native` | 팀 상세 중간 | 네이티브 |
 | `search_result_inline` | 검색 결과 인라인 | 네이티브 |
-| `share_complete_interstitial` | 공유 완료 후 (인라인) | — |
-| `favorite_home_inline` | 즐겨찾기·홈 인라인 | 네이티브 |
+| `share_complete_interstitial` | 공유 완료 후 (인라인) | interstitial |
+| `favorite_home_inline` | 즐겨찾기 페이지 인라인 | 네이티브 |
 
 > **경기센터는 하단 배너(`gamecenter_bottom_banner`) 1개만 허용합니다.** 중간 네이티브·전면광고 금지.
 >
