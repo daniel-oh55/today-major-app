@@ -20,9 +20,19 @@ export function DataSourceNotice({ metadata = PROVIDER_METADATA.dummy }: DataSou
         </p>
       )}
       <div className="flex gap-4 mt-2 flex-wrap">
-        <Link href="/privacy"     className="text-xs text-gray-300 hover:text-gray-400 transition-colors">개인정보처리방침</Link>
-        <Link href="/terms"       className="text-xs text-gray-300 hover:text-gray-400 transition-colors">이용약관</Link>
-        <Link href="/data-notice" className="text-xs text-gray-300 hover:text-gray-400 transition-colors">데이터 안내</Link>
+        {[
+          { href: "/privacy",     label: "개인정보처리방침" },
+          { href: "/terms",       label: "이용약관" },
+          { href: "/data-notice", label: "데이터 안내" },
+        ].map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            className="text-xs font-medium text-gray-600 underline underline-offset-2 hover:text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded transition-colors"
+          >
+            {label}
+          </Link>
+        ))}
       </div>
     </div>
   );
