@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   description: "한국어로 확인하는 미국 프로야구 경기·선수 기록 앱 (비공식 팬앱)",
   manifest: "/manifest.json",
   robots: "noindex",
+  icons: {
+    apple: "/icons/icon-192.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "오늘의 메이저",
+  },
 };
 
 export const viewport: Viewport = {
