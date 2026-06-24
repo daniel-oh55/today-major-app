@@ -30,7 +30,7 @@ export interface BdlPlayer {
   last_name: string;
   jersey_number: string | null;
   position: string;
-  team: BdlTeam;
+  team: BdlTeam | null;  // null if player is a free agent or team data is unavailable
   height: string | null;
   weight: string | null;
   birth_date: string | null;

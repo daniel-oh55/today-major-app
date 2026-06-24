@@ -31,7 +31,7 @@ export interface MsfPlayerInfo {
   last_name: string;
   jersey_number: string | null;
   primary_position: string;
-  current_team: MsfTeamDetail;
+  current_team: MsfTeamDetail | null;  // null if player is a free agent or team data is unavailable
   birth_date: string | null;
   bat_hand: string | null;    // "L" | "R" | "S"
   throw_hand: string | null;  // "L" | "R"

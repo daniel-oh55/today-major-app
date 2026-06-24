@@ -56,12 +56,34 @@ AdSlot (컴포넌트) → getAdProvider() → AdProvider (interface)
 
 ## 환경 변수
 
-`.env.local` 파일을 생성하고 다음을 설정합니다. **API Key는 절대 프론트엔드에 노출하지 마세요.**
+`.env.local` 파일을 생성하고 다음을 설정합니다.
+
+> **중요:** API Key는 절대 git에 커밋하거나 프론트엔드에 노출하지 마세요.
+> 현재는 DummyProvider가 기본값입니다. 실제 API 연결 전 계약 및 약관 확인이 필요합니다.
 
 ```bash
-# .env.local (서버 전용 — 클라이언트에 노출되지 않음)
-BASEBALL_DATA_PROVIDER=dummy     # dummy | balldontlie_skeleton | mysportsfeeds_skeleton | sportsdataio_skeleton | sportradar_skeleton
-BASEBALL_API_KEY=                # 실제 API Key (서버 전용)
+# .env.local (서버 전용 — 클라이언트에 노출되지 않음, git 커밋 금지)
+
+# Provider 선택. 현재는 dummy만 runtime-ready입니다.
+# skeleton provider를 선택하면 dummy로 자동 fallback됩니다.
+BASEBALL_DATA_PROVIDER=dummy
+# 가능한 값: dummy | balldontlie_skeleton | mysportsfeeds_skeleton
+#            sportsdataio_skeleton | sportradar_skeleton | rolling_insights_skeleton
+
+# Provider 런타임 모드 (개발용 안전장치)
+# dummy_only            - 모든 env 설정을 무시하고 dummy만 사용
+# safe_dummy_fallback   - skeleton/미지원 provider는 dummy로 fallback (기본값)
+# provider_poc_disabled - skeleton 선택 가능하나 실제 외부 호출 차단
+# provider_enabled      - 실제 provider 허용 (BASEBALL_API_KEY 필요)
+BASEBALL_PROVIDER_RUNTIME_MODE=safe_dummy_fallback
+
+# 실제 API Key (서버 전용, 절대 커밋 금지, 절대 NEXT_PUBLIC_ 사용 금지)
+BASEBALL_API_KEY=
+BASEBALL_API_BASE_URL=
+
+# API 응답 타임아웃 (ms). 기본값 5000. 최대 60000.
+# BASEBALL_API_TIMEOUT_MS=5000
+
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 # 광고 SDK 연동 시 추가 (현재 미사용)
@@ -171,6 +193,20 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] API provider 후보 평가 문서 (`docs/api-provider-evaluation.md`)
 - [x] Provider mapper contract 문서 (`docs/provider-mapper-contract.md`)
 - [x] DataSourceNotice / HomeClient provider 라벨 동적 표시
+
+### Phase 9
+- [x] `BASEBALL_PROVIDER_RUNTIME_MODE` env 처리 (`dummy_only` / `safe_dummy_fallback` / `provider_poc_disabled` / `provider_enabled`)
+- [x] `BASEBALL_API_TIMEOUT_MS` env 처리 (안전한 parse, 기본값 5000ms)
+- [x] Provider runtime gate 강화 (dummy_only 강제, skeleton → dummy fallback)
+- [x] BdlPlayer / MsfPlayerInfo 팀 필드 nullable 처리 (자유계약선수 대비)
+- [x] Mapper nested team null defense (optional chaining으로 crash 방지)
+- [x] Raw response validation 준비 (`validation.ts`, `balldontlie/validation.ts`, `mysportsfeeds/validation.ts`)
+- [x] Provider 문의 템플릿 (`docs/provider-contact-template.md`) — 영어 + 한국어
+- [x] Provider POC runbook (`docs/provider-poc-runbook.md`) — API Key 설정, 구현 순서, POC 성공 기준
+- [x] API provider 평가 문서 상태 컬럼 추가 (`not_contacted` / `contacted` / `awaiting_reply` 등)
+- [x] 후보별 POC 우선순위 표시 (high / medium / low)
+- [x] `docs/commercial-api-checklist.md` 업데이트 (production 사용 금지 원칙 명시)
+- [x] README / docs 정합성 개선 (rolling_insights_skeleton 추가, footer Phase 8/9 기준 업데이트)
 
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)
