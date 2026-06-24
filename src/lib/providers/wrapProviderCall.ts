@@ -2,12 +2,21 @@ import "server-only";
 import { logApiUsage } from "../monitoring/apiUsage";
 import { AppDataError } from "./errors";
 import type { ProviderErrorKind } from "./errors";
+import type { CachePolicy } from "../cache/types";
+import type { ProviderOperationName } from "./operations";
+
+export interface WrapProviderCallOptions {
+  cacheKey?: string;
+  cachePolicy?: CachePolicy;
+  operationName?: ProviderOperationName;
+}
 
 export async function wrapProviderCall<T>(
   providerId: string,
   operation: string,
   fn: () => Promise<T>,
-  cacheHit = false
+  cacheHit = false,
+  _opts?: WrapProviderCallOptions   // reserved for cache integration
 ): Promise<T> {
   const start = Date.now();
   try {

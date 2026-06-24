@@ -1,10 +1,14 @@
 # Provider 연동 계획
 
-## 현재 상태
+## 현재 상태 (Phase 8)
 
 - 런타임 Provider: `DummyProvider` (개발용 더미 데이터)
-- 등록된 skeleton: `BallDontLieProvider`, `MySportsFeedsProvider`, `SportsDataIOProvider`, `SportradarProvider`
+- 등록된 skeleton: `BallDontLieProvider`, `MySportsFeedsProvider`, `SportsDataIOProvider`, `SportradarProvider`, `RollingInsightsProvider`
+- BallDontLie + MySportsFeeds: 가상 external types + mapper skeleton + fixture 구비
 - 실제 외부 API 호출: 없음
+
+> **Phase 8은 POC 준비 단계입니다.** 실제 API 연결은 계약/약관 확인 후 진행하세요.
+> `docs/api-provider-evaluation.md` 참고. `docs/commercial-api-checklist.md`의 모든 항목 확인 필수.
 
 ---
 

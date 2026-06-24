@@ -11,7 +11,8 @@ function resolveProvider(): ProviderId {
   if (!val || !(val in PROVIDER_METADATA)) {
     if (val) {
       console.warn(
-        `[env] Unknown BASEBALL_DATA_PROVIDER="${val}". Falling back to "dummy".`
+        "[provider-config] Unknown BASEBALL_DATA_PROVIDER. Falling back to dummy.",
+        { reason: "unsupported_provider" }
       );
     }
     return "dummy";
@@ -20,8 +21,8 @@ function resolveProvider(): ProviderId {
   const id = val as ProviderId;
   if (!RUNTIME_READY_PROVIDERS.includes(id)) {
     console.warn(
-      `[env] BASEBALL_DATA_PROVIDER="${val}" is not runtime-ready (skeleton only). ` +
-        `Falling back to "dummy". Runtime-ready: ${RUNTIME_READY_PROVIDERS.join(", ")}`
+      "[provider-config] Selected provider is not runtime-ready (skeleton only). Falling back to dummy.",
+      { reason: "not_runtime_ready" }
     );
     return "dummy";
   }

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getGameCenter } from "@/lib/services/gameService";
+import { logApiRouteError } from "@/lib/monitoring/safeLogger";
 
 export async function GET(
   _req: Request,
@@ -10,7 +11,7 @@ export async function GET(
     const center = await getGameCenter(gameId);
     return NextResponse.json(center);
   } catch (err) {
-    console.error("[api/games/[gameId]] Failed to load game center:", err);
+    logApiRouteError("games.gameId", err);
     return NextResponse.json({ error: "Failed to load game" }, { status: 500 });
   }
 }

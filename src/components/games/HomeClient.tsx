@@ -47,7 +47,7 @@ export function HomeClient({ games, dateKst, providerMeta }: HomeClientProps) {
           오늘의 미국 프로야구
         </h1>
         <p className="text-xs text-blue-300 mt-2">{dateKst.replace(/-/g, ".")} KST 기준</p>
-        <p className="text-xs text-blue-500 mt-1">비공식 앱 · 현재 더미 데이터 사용 중</p>
+        <p className="text-xs text-blue-500 mt-1">비공식 앱 · {providerMeta?.label ?? "개발용 데이터"}</p>
       </div>
 
       {/* ── 상단 배너 광고 ── */}

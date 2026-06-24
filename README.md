@@ -60,7 +60,7 @@ AdSlot (컴포넌트) → getAdProvider() → AdProvider (interface)
 
 ```bash
 # .env.local (서버 전용 — 클라이언트에 노출되지 않음)
-BASEBALL_DATA_PROVIDER=dummy     # dummy | balldontlie | mysportsfeeds
+BASEBALL_DATA_PROVIDER=dummy     # dummy | balldontlie_skeleton | mysportsfeeds_skeleton | sportsdataio_skeleton | sportradar_skeleton
 BASEBALL_API_KEY=                # 실제 API Key (서버 전용)
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
@@ -159,6 +159,18 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] ProviderBadge 서버 컴포넌트
 - [x] 상업 API 계약 전 체크리스트 (`docs/commercial-api-checklist.md`)
 - [x] Provider 연동 계획 문서 (`docs/provider-integration-plan.md`)
+- [x] 서버 로그 보안 강화 (raw env 값, raw error 객체 로그 제거, `safeLogger.ts`)
+
+### Phase 8
+- [x] Rolling Insights skeleton provider 추가
+- [x] Provider operation 표준화 (`operations.ts`) + cache policy 연결
+- [x] `wrapProviderCall` opts 확장 (`cacheKey`, `cachePolicy`, `operationName`)
+- [x] BallDontLie mapper skeleton (`types.ts`, `mappers.ts`, `__fixtures__`, `mappers.test.ts`)
+- [x] MySportsFeeds mapper skeleton (`types.ts`, `mappers.ts`, `__fixtures__`, `mappers.test.ts`)
+- [x] Compile-time mapper 타입 검증 (`npx tsc --noEmit`으로 실행)
+- [x] API provider 후보 평가 문서 (`docs/api-provider-evaluation.md`)
+- [x] Provider mapper contract 문서 (`docs/provider-mapper-contract.md`)
+- [x] DataSourceNotice / HomeClient provider 라벨 동적 표시
 
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)
