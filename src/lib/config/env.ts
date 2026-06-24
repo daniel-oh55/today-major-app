@@ -1,5 +1,5 @@
 import "server-only";
-import { PROVIDER_METADATA } from "../providers/metadata";
+import { PROVIDER_METADATA, RUNTIME_READY_PROVIDERS } from "../providers/metadata";
 import type { ProviderId } from "../providers/metadata";
 
 export type ProviderRuntimeMode =
@@ -14,9 +14,6 @@ const VALID_RUNTIME_MODES: ProviderRuntimeMode[] = [
   "provider_poc_disabled",
   "provider_enabled",
 ];
-
-// runtime 동작이 보장된 provider 목록. skeleton provider는 포함하지 않습니다.
-const RUNTIME_READY_PROVIDERS: ProviderId[] = ["dummy"];
 
 function resolveRuntimeMode(): ProviderRuntimeMode {
   const val = process.env.BASEBALL_PROVIDER_RUNTIME_MODE;

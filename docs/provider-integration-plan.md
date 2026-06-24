@@ -1,14 +1,17 @@
 # Provider 연동 계획
 
-## 현재 상태 (Phase 8)
+## 현재 상태 (Phase 9/10)
 
 - 런타임 Provider: `DummyProvider` (개발용 더미 데이터)
 - 등록된 skeleton: `BallDontLieProvider`, `MySportsFeedsProvider`, `SportsDataIOProvider`, `SportradarProvider`, `RollingInsightsProvider`
 - BallDontLie + MySportsFeeds: 가상 external types + mapper skeleton + fixture 구비
+- Provider runtime gate (`BASEBALL_PROVIDER_RUNTIME_MODE`) 및 timeout env (`BASEBALL_API_TIMEOUT_MS`) 추가 (Phase 9)
+- `RUNTIME_READY_PROVIDERS`는 `src/lib/providers/metadata.ts` 단일 소스로 관리 (Phase 10)
 - 실제 외부 API 호출: 없음
 
-> **Phase 8은 POC 준비 단계입니다.** 실제 API 연결은 계약/약관 확인 후 진행하세요.
+> **Phase 9/10은 POC 준비 및 MVP QA 단계입니다.** 실제 API 연결은 계약/약관 확인 후 진행하세요.
 > `docs/api-provider-evaluation.md` 참고. `docs/commercial-api-checklist.md`의 모든 항목 확인 필수.
+> 문의 템플릿은 `docs/provider-contact-template.md`, POC 절차는 `docs/provider-poc-runbook.md`를 참고하세요.
 
 ---
 
@@ -39,7 +42,7 @@ BASEBALL_API_BASE_URL=https://api.example.com
 ```
 
 `src/lib/providers/metadata.ts`의 `ProviderId` 타입에 해당 id가 있는지 확인합니다.
-`src/lib/config/env.ts`의 `RUNTIME_READY_PROVIDERS` 배열에 해당 id를 추가합니다.
+`src/lib/providers/metadata.ts`의 `RUNTIME_READY_PROVIDERS` 배열에 해당 id를 추가합니다. (단일 소스 — env.ts와 registry.ts는 이 배열을 import합니다.)
 
 ### 3단계: Provider Adapter 작성
 
@@ -204,4 +207,4 @@ try {
 
 ---
 
-*이 문서는 Phase 8/9 기준으로 작성되었습니다. 실제 API 연동 시 업데이트가 필요합니다.*
+*이 문서는 Phase 9/10 기준으로 작성되었습니다. 실제 API 연동 시 업데이트가 필요합니다.*

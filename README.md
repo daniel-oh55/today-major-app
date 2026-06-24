@@ -208,11 +208,38 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] `docs/commercial-api-checklist.md` 업데이트 (production 사용 금지 원칙 명시)
 - [x] README / docs 정합성 개선 (rolling_insights_skeleton 추가, footer Phase 8/9 기준 업데이트)
 
+### Phase 10
+- [x] `RUNTIME_READY_PROVIDERS` 단일 소스 통합 (`src/lib/providers/metadata.ts` — env.ts/registry.ts 중복 제거)
+- [x] 앱 이름 "오늘의 메이저" 통일 (layout metadata, AppHeader 기본 타이틀)
+- [x] PWA manifest 추가 (`public/manifest.json`) — name, short_name, start_url, display, theme_color 설정
+- [x] 커스텀 404 페이지 추가 (`src/app/not-found.tsx`) — 홈으로 이동 / 선수 검색 CTA
+- [x] ErrorState 개선 — actionHref/actionLabel CTA 추가, 터치 영역 44px 이상
+- [x] BottomNav에 즐겨찾기 탭 추가 (`/favorites`, ⭐)
+- [x] DataSourceNotice 문구 개선 — 비공식 팬앱 취지 명확화, 더미 데이터 안내 강조
+- [x] `docs/mvp-qa-checklist.md` 추가 — 14개 항목, 체크박스 형태 QA 가이드
+- [x] `docs/provider-integration-plan.md` Phase 9/10 기준으로 업데이트
+
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)
 - 한국어 문자중계 / AI 요약 기능
 - 실제 광고 SDK 연동
 - 실시간 데이터 (현재 Dummy 데이터만 동작)
+- 상업 API 실제 연동 (더미 데이터 기반)
+
+---
+
+## 실제 서비스 전 확인 필요 항목
+
+MVP 기능은 구현되어 있으나, 실제 사용자에게 배포하기 전에 아래 항목이 필요합니다.
+
+| 항목 | 내용 |
+|------|------|
+| 상업 API 계약 | 광고형 무료 앱 사용 가능 여부 포함 ([체크리스트](docs/commercial-api-checklist.md)) |
+| 광고 SDK 연동 | AdSense / AdManager 계약 후 `src/lib/ads/providers/` 구현 |
+| 데이터 출처 고지 | 계약 API의 출처 표기 의무 확인 |
+| 개인정보 처리방침 | 광고 SDK 사용 시 개인정보 수집 고지 의무 |
+| 앱스토어/플레이스토어 정책 | PWA 또는 네이티브 배포 시 별도 정책 확인 |
+| PWA 아이콘 | `public/manifest.json`에 아이콘 경로 추가 (자체 디자인, MLB 로고 사용 금지) |
 
 ---
 

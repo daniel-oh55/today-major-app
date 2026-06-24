@@ -24,6 +24,10 @@ export interface ProviderMetadata {
   supportsTeamStats: boolean;
 }
 
+// Single source of truth for runtime-ready providers.
+// Imported by both env.ts (provider resolution) and registry.ts (re-exported).
+export const RUNTIME_READY_PROVIDERS: ProviderId[] = ["dummy"];
+
 export const PROVIDER_METADATA: Record<ProviderId, ProviderMetadata> = {
   dummy: {
     id: "dummy",

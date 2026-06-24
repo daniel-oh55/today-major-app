@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/", label: "경기", icon: "⚾" },
   { href: "/players", label: "선수", icon: "👤" },
+  { href: "/favorites", label: "즐겨찾기", icon: "⭐" },
 ];
 
 export function BottomNav() {
