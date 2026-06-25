@@ -101,14 +101,15 @@
 
 ---
 
-### 테스트 #1 — 2026-06-25
+### Local preflight smoke test #1 — 2026-06-25
 
-**배포 URL:** `http://localhost:3099` (로컬 프로덕션 빌드 — `next build && next start`)<br />
-**배포 환경:** Local production build (Vercel Preview 배포 전 사전 검증)<br />
-**Git 커밋:** `83125a6` (fix: smoke-test-results trailing whitespace and verdict clarity (P2))<br />
+**테스트 URL:** `http://localhost:3099` (로컬 프로덕션 빌드 — `next build && next start`)<br />
+**테스트 환경:** Local production build (Vercel Preview 배포 전 사전 검증)<br />
+**App artifact tested:** `83125a6` (fix: smoke-test-results trailing whitespace and verdict clarity (P2))<br />
+**Smoke result documentation commit:** `51958a8` (docs: Phase 14 smoke test results #1)<br />
 **테스트 담당:** Claude Sonnet 4.6 (automated + static analysis)
 
-> 참고: 이 테스트는 로컬 프로덕션 빌드 기준입니다. Vercel Preview URL 배포 후 브라우저 시각 항목(모바일 뷰포트, PWA 설치, 터치 영역)을 재확인해야 합니다.
+> 이 섹션은 로컬 사전 검증 기록이며 Phase 14 release judgment로 사용하지 않습니다. 최종 릴리즈 판단은 아래 Vercel Preview smoke test 섹션 기준으로만 기록합니다.
 
 **테스트 환경:**
 
@@ -184,13 +185,108 @@
 
 ---
 
+#### Local preflight summary
+
+| Total | Pass | Fail | Blocked | Not tested |
+|-------|------|------|---------|------------|
+| 31 | 23 | 0 | 0 | 8 |
+
+> 로컬 사전 검증에서는 release blocker가 발견되지 않았지만, 실제 Vercel Preview/Production URL 기준 smoke test가 아니므로 release judgment를 내리지 않습니다.
+
+---
+
+### Vercel Preview smoke test #1 — 2026-06-25
+
+**배포 URL:** `not available`<br />
+**배포 환경:** Vercel Preview (URL 미확보로 실행 불가)<br />
+**Deployed app commit SHA:** `not available` (Vercel deployment detail 확인 필요)<br />
+**Smoke result documentation commit:** `51958a8` (docs: Phase 14 smoke test results #1)<br />
+**테스트 담당:** Claude Sonnet 4.6 (documentation update)
+
+> 실제 Vercel Preview 또는 Production URL이 제공되지 않아 Phase 14 release smoke test를 완료하지 못했습니다. localhost 결과는 release evidence로 사용하지 않습니다.
+
+**테스트 환경:**
+
+| 환경 | 실행 여부 |
+|------|----------|
+| Desktop Chrome (latest) | blocked — Vercel URL not available |
+| Mobile viewport 375px (DevTools) | blocked — Vercel URL not available |
+| PWA install check (Chrome Manifest 탭) | blocked — Vercel URL not available |
+
+---
+
+#### 테스트 결과표
+
+> 결과 값: `pass` / `fail` / `blocked` / `not tested`
+
+| # | 항목 | 결과 | 검증 방법 | 비고 |
+|---|------|------|----------|------|
+| 1 | 배포 URL 접근 가능 여부 | blocked | Vercel URL 확인 | Vercel Preview/Production URL 미확보 |
+| 2 | 홈 화면 접속 (`/`) | not tested | Vercel HTTP | URL 미확보 |
+| 3 | 오늘 경기 목록 표시 | not tested | Vercel runtime | URL 미확보 |
+| 4 | 경기 필터 탭 동작 | not tested | 브라우저 | URL 미확보 |
+| 5 | 경기센터 접속 (`/games/[gameId]`) | not tested | Vercel HTTP | URL 미확보 |
+| 6 | 경기센터 스코어보드 표시 | not tested | Vercel runtime/browser | URL 미확보 |
+| 7 | 경기센터 라인업/박스스코어 표시 | not tested | 브라우저 | URL 미확보 |
+| 8 | 선수 검색 (`/players`) | not tested | Vercel HTTP/browser | URL 미확보 |
+| 9 | 선수 상세 (`/players/[playerId]`) | not tested | Vercel HTTP | URL 미확보 |
+| 10 | 팀 상세 (`/teams/[teamId]`) | not tested | Vercel HTTP | URL 미확보 |
+| 11 | 즐겨찾기 (`/favorites`) | not tested | Vercel HTTP/browser | URL 미확보 |
+| 12 | 즐겨찾기 추가/해제 동작 | not tested | 브라우저 | URL 미확보 |
+| 13 | 공유 기능 (선수/팀/경기) | not tested | 브라우저 | URL 미확보 |
+| 14 | 공유 완료 후 inline placeholder | not tested | 브라우저 | URL 미확보 |
+| 15 | `/privacy` 접속 | not tested | Vercel HTTP | URL 미확보 |
+| 16 | `/terms` 접속 | not tested | Vercel HTTP | URL 미확보 |
+| 17 | `/data-notice` 접속 | not tested | Vercel HTTP | URL 미확보 |
+| 18 | `manifest.json` (200 OK, 유효한 JSON) | not tested | Vercel HTTP | URL 미확보 |
+| 19 | PWA 아이콘 4종 (200 OK) | not tested | Vercel HTTP | URL 미확보 |
+| 20 | Chrome DevTools Manifest 오류 없음 | not tested | 브라우저 | URL 미확보 |
+| 21 | 광고 placeholder 전 화면 표시 | not tested | 브라우저 | URL 미확보 |
+| 22 | 광고 슬롯 위치·종류 정책 일치 | not tested | 브라우저 | URL 미확보 |
+| 23 | DataSourceNotice 표시 (홈·팀 상세) | not tested | 브라우저 | URL 미확보 |
+| 24 | DataSourceNotice 정책 링크 3종 | not tested | 브라우저 | URL 미확보 |
+| 25 | 잘못된 ID 접근 → NotFound 표시 | not tested | Vercel HTTP | URL 미확보 |
+| 26 | 모바일 375px 가로 스크롤 없음 | not tested | 브라우저 | URL 미확보 |
+| 27 | 모바일 44px 터치 영역 | not tested | 브라우저 | URL 미확보 |
+| 28 | API Key/secret 클라이언트 노출 없음 | not tested | Vercel response/bundle | URL 미확보 |
+| 29 | 실제 외부 API 호출 없음 (Network 탭) | not tested | 브라우저 Network | URL 미확보 |
+| 30 | 광고 SDK 스크립트 없음 | not tested | 브라우저 Network | URL 미확보 |
+| 31 | MLB/구단 로고·선수 사진·영상 없음 | not tested | 브라우저 | URL 미확보 |
+| 32 | 한국어 문자중계·AI 요약 없음 | not tested | 브라우저 | URL 미확보 |
+
+---
+
+#### Vercel smoke summary
+
+| Total | Pass | Fail | Blocked | Not tested |
+|-------|------|------|---------|------------|
+| 32 | 0 | 0 | 1 | 31 |
+
+#### Release Blocker 목록
+
+> 아래 항목 중 하나라도 있으면 배포 중단/롤백
+
+| # | 내용 | 관련 이슈 |
+|---|------|----------|
+| 1 | Vercel Preview/Production URL이 없어 release smoke test를 실행하지 못함 | Vercel URL 필요 |
+
+#### Non-Blocker Follow-up 목록
+
+> 다음 릴리즈 전 처리 예정
+
+| # | 내용 | 우선순위 |
+|---|------|----------|
+| — | (없음 — 현재 상태는 blocker) | — |
+
+---
+
 #### 최종 판단
 
-- [ ] **Ready for internal test** — 모든 항목 pass, blocker 없음, 배포 가능
-- [x] **Ready for deployment with non-blocker follow-up** — blocker 없음, non-blocker 개선 사항은 다음 릴리즈에서 처리
-- [ ] **Needs fix before deployment** — 배포 전 수정이 필요한 항목 존재 (blocker는 아니나 권고)
-- [ ] **Blocked** — release blocker 존재, 수정 후 재배포 필요
+- [ ] **Ready for internal test**
+- [ ] **Ready for deployment with non-blocker follow-up**
+- [ ] **Needs fix before deployment**
+- [x] **Blocked**
 
-> **판단 근거:** 자동 검증 가능한 26개 항목 중 19개 pass, 7개 not-tested(브라우저 시각 항목). Release blocker 0건. not-tested 항목은 Vercel 배포 후 브라우저로 재확인 예정.
+> **판단 근거:** 실제 Vercel Preview/Production URL 기준 결과가 없습니다. Vercel smoke table 기준 Total 32, Pass 0, Fail 0, Blocked 1, Not tested 31입니다. Vercel URL 확보 후 이 섹션을 실제 결과로 갱신해야 합니다.
 
 ---
