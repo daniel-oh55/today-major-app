@@ -132,4 +132,12 @@
 
 ---
 
-*이 문서는 Phase 11 기준으로 작성되었습니다. 실제 서비스 출시 전 각 항목을 최신화하세요.*
+---
+
+## RC 통과 후 다음 단계
+
+RC 체크리스트 전 항목 통과 → Vercel 배포 → **[docs/deployment-smoke-test.md](deployment-smoke-test.md)** 실행 → 결과를 **[docs/smoke-test-results.md](smoke-test-results.md)** 에 기록
+
+---
+
+*이 문서는 Phase 13 기준으로 작성되었습니다. 실제 서비스 출시 전 각 항목을 최신화하세요.*

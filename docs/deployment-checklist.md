@@ -52,6 +52,8 @@ Vercel 대시보드 → Settings → Environment Variables
 
 ## 배포 후: 기능 검증
 
+> 배포 직후 전체 기능 확인은 **[docs/deployment-smoke-test.md](deployment-smoke-test.md)** 체크리스트를 실행하고 결과를 **[docs/smoke-test-results.md](smoke-test-results.md)** 에 기록하세요.
+
 ### 라우팅
 
 - [ ] `https://your-domain/` — 홈 정상
