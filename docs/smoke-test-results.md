@@ -11,9 +11,9 @@
 
 ### 테스트 #N — YYYY-MM-DD
 
-**배포 URL:** `https://`  
-**배포 환경:** Preview / Production  
-**Git 커밋:** (commit hash)  
+**배포 URL:** `https://`<br />
+**배포 환경:** Preview / Production<br />
+**Git 커밋:** (commit hash)<br />
 **테스트 담당:** (담당자)
 
 **테스트 환경:**
@@ -86,9 +86,10 @@
 
 #### 최종 판단
 
-- [ ] **Ready for internal test** — 모든 항목 pass, blocker 없음
-- [ ] **Needs fix** — non-blocker만 있음, 다음 릴리즈 처리
-- [ ] **Blocked** — release blocker 존재, 재배포 필요
+- [ ] **Ready for internal test** — 모든 항목 pass, blocker 없음, 배포 가능
+- [ ] **Ready for deployment with non-blocker follow-up** — blocker 없음, non-blocker 개선 사항은 다음 릴리즈에서 처리
+- [ ] **Needs fix before deployment** — 배포 전 수정이 필요한 항목 존재 (blocker는 아니나 권고)
+- [ ] **Blocked** — release blocker 존재, 수정 후 재배포 필요
 
 ---
 
