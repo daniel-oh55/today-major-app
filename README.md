@@ -233,6 +233,14 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] `docs/deployment-checklist.md` — Vercel 배포 절차 및 환경변수 가이드
 - [x] `scripts/generate-icons.mjs` — 아이콘 생성 스크립트 (Node.js 내장 zlib, 외부 의존성 없음)
 
+### Phase 12
+- [x] `docs/deployment-smoke-test.md` — 배포 직후 실행하는 13개 섹션 체크박스 smoke test (라우팅, 광고, PWA, 보안, 금지 항목 회귀)
+
+### Phase 13
+- [x] `docs/deployment-smoke-test.md` 보강 — BASEBALL_DATA_PROVIDER dummy 사전 확인 추가, release blocker/non-blocker 기준 추가
+- [x] `docs/smoke-test-results.md` — smoke test 결과 기록 템플릿 (날짜·URL·환경별 결과표, 최종 판단)
+- [x] 문서 연결 — deployment-checklist, release-candidate-checklist에서 smoke-test 문서 상호 링크 추가
+
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)
 - 한국어 문자중계 / AI 요약 기능

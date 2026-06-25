@@ -10,8 +10,10 @@
 ## 사전 확인
 
 - [ ] 배포 URL이 접근 가능함 (Vercel Preview 또는 Production URL)
-- [ ] `BASEBALL_PROVIDER_RUNTIME_MODE=safe_dummy_fallback` (또는 `dummy_only`) 설정 확인
+- [ ] `BASEBALL_DATA_PROVIDER=dummy` 또는 미설정 상태에서 dummy fallback으로 동작함 확인
+- [ ] `BASEBALL_PROVIDER_RUNTIME_MODE=dummy_only` 또는 `safe_dummy_fallback` 설정 확인
 - [ ] `BASEBALL_API_KEY`가 비어있거나 설정되지 않음 확인
+- [ ] 실제 상업 API provider(`balldontlie`, `mysportsfeeds` 등)가 활성화되어 있지 않음 확인
 
 ---
 
@@ -170,8 +172,35 @@
 
 위 항목 전체 통과 시 해당 배포를 smoke test 완료로 판단합니다.
 
-실패 항목이 있을 경우 이슈를 기록하고 배포를 롤백하거나 핫픽스를 진행하세요.
+실패 항목이 있을 경우 아래 기준에 따라 release blocker/non-blocker를 분류한 후, `docs/smoke-test-results.md`에 결과를 기록하세요.
 
 ---
 
-*이 문서는 Phase 12 기준으로 작성되었습니다. 상업 API 연동 또는 광고 SDK 연동 후 관련 항목을 추가해야 합니다.*
+## Release Blocker 기준
+
+아래 항목 중 하나라도 해당하면 배포를 롤백하거나 핫픽스 후 재배포합니다.
+
+- 앱 첫 화면(`/`)이 열리지 않음 (HTTP 4xx/5xx, JS 오류)
+- `npm run build` 실패
+- 주요 라우트(`/games/[id]`, `/players/[id]`, `/teams/[id]`) 500 에러
+- `BASEBALL_API_KEY` 또는 서버 secret이 클라이언트 번들/응답에 노출됨
+- 실제 외부 스포츠 API 호출 발생 (`api.mlb.com`, BallDontLie 등)
+- 광고 SDK(`adsbygoogle`, `doubleclick`, `adsystem`)가 의도치 않게 로드됨
+- MLB/구단 로고, 선수 사진, 영상이 화면에 노출됨
+- "공식 MLB 앱", "Official MLB", "공식 기록" 등 공식 앱처럼 보이는 문구가 사용자 화면에 노출됨
+- 경기센터에서 한국어 문자중계, AI 요약처럼 보이는 기능 노출
+
+## Non-Blocker (추적 후 다음 릴리즈에서 처리)
+
+아래 항목은 배포는 가능하나, 다음 배포 전 처리합니다.
+
+- 화면 내 문구 미세 조정 (마케팅·안내 텍스트)
+- PWA 아이콘 품질 개선 (현재 자체 placeholder)
+- 문서 링크 보완 또는 오타 수정
+- 모바일 spacing·정렬 미세 조정
+- 접근성 minor 개선 (color contrast, focus 순서 등)
+- 정책 페이지(`/privacy`, `/terms`) 내용 보완 (법률 검토 전 임시 안내)
+
+---
+
+*이 문서는 Phase 13 기준으로 작성되었습니다. 상업 API 연동 또는 광고 SDK 연동 후 관련 항목을 추가해야 합니다.*
