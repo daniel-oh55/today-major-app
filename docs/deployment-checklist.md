@@ -107,4 +107,4 @@ Vercel 대시보드 → Settings → Environment Variables
 
 ---
 
-*이 문서는 Phase 11 기준으로 작성되었습니다. 실제 API 연동 시 업데이트하세요.*
+*이 문서는 Phase 12 기준으로 작성되었습니다. 실제 API 연동 시 업데이트하세요.*
