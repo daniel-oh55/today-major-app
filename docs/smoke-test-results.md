@@ -331,8 +331,9 @@
 **배포 URL:** `https://today-major-app.vercel.app` (Vercel canonical production domain)<br />
 **배포 환경:** Production<br />
 **배포 상태:** Ready (Vercel GitHub App 연동, state: success)<br />
+**App artifact commit SHA:** `d1d135f1` (Merge PR #18: Phase 14C — fix @eslint/js peer dep, 2026-06-25T06:09:03Z)<br />
 **Deployed app commit SHA:** `d1d135f1` (Merge PR #18: Phase 14C — fix @eslint/js peer dep, 2026-06-25T06:09:03Z)<br />
-**Smoke result documentation commit:** Phase 14B 재실행 커밋 (이 파일)<br />
+**Smoke result documentation commit:** `3ca1af2` (docs: Phase 14B Vercel Production smoke test results — Ready for deployment)<br />
 **테스트 담당:** Claude Sonnet 4.6 (automated — curl HTTP checks + API runtime validation + static analysis)
 
 **테스트 환경:**
