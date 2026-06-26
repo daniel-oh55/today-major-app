@@ -51,7 +51,7 @@ export function GameShareCard({ game, events }: GameShareCardProps) {
       {/* 주요 기록 */}
       {notable.length > 0 && (
         <div className="px-4 py-3 border-b border-gray-100">
-          <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide mb-2">주요 기록</p>
+          <p className="text-[10px] text-gray-400 font-semibold mb-2">주요 기록</p>
           <ul className="flex flex-col gap-1" aria-label="주요 경기 기록">
             {notable.map((e) => (
               <li key={e.id} className="text-xs text-gray-600">

@@ -64,7 +64,7 @@ export function TeamShareCard({ team }: TeamShareCardProps) {
       {/* 최근 경기 */}
       {team.recentGames && team.recentGames.length > 0 && (
         <div className="px-4 py-3 border-b border-gray-100">
-          <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide mb-1.5">최근 경기</p>
+          <p className="text-[10px] text-gray-400 font-semibold mb-1.5">최근 경기</p>
           <div className="flex gap-1.5 flex-wrap">
             {team.recentGames.slice(0, 5).map((g, i) => (
               <span

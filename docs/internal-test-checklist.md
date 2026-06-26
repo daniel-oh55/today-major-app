@@ -4,7 +4,7 @@
 > Vercel Production smoke test non-blocker 항목 및 브라우저 전용 확인 항목을 포함합니다.
 >
 > **테스트 URL:** `https://today-major-app.vercel.app`
-> **참고:** `docs/smoke-test-results.md` — Vercel Production smoke test #1 (2026-06-25) 결과 기반
+> **참고:** `docs/smoke-test-results.md` — Vercel Production smoke test #1 결과 기반
 
 ---
 
@@ -20,7 +20,7 @@
 | NB-4 | 공유 버튼 동작 (Share API 또는 클립보드 복사) | medium | 선수/팀/경기 상세 → 공유하기 버튼 |
 | NB-5 | Chrome DevTools → Application → Manifest 탭 오류 없음 | low | Chrome DevTools (F12) → Application → Manifest |
 | NB-6 | 모바일 375px 기준 가로 스크롤 없음 | low | DevTools Toggle device toolbar (Ctrl+Shift+M), 375×812 |
-| NB-7 | 모바일 44px 터치 영역 (버튼, BottomNav, 카드) | low | DevTools 모바일 뷰포트에서 탭·버튼 영역 확인 |
+| NB-7 | 모바일 44px 터치 영역 (버튼, BottomNav, 카드) | low | DevTools 모바일 뷰포트에서 탭·버튼 영역 확인 (Phase 15/16.5 개선 완료) |
 
 ---
 
@@ -93,14 +93,21 @@
 - [ ] 공유 성공 후 "공유됨" 또는 "복사됨" 상태 텍스트가 인라인으로 표시되는가
 - [ ] 공유 완료 메시지가 overlay popup이 아닌 인라인 표시인가
 
-## 10. DataSourceNotice UX
+## 10. 정책/고지 페이지
+
+- [ ] `/privacy`, `/terms`, `/data-notice` 페이지가 정상 로드되는가
+- [ ] 각 페이지 상단 "← 홈" 링크가 홈으로 이동하는가
+- [ ] "비공식 팬앱" / 더미 데이터 / MLB Stats API 미사용 고지 문구가 표시되는가
+- [ ] "공식", "Official", "공식 기록" 표현이 없는가
+
+## 11. DataSourceNotice UX
 
 - [ ] 홈 및 팀 상세 하단에 DataSourceNotice가 표시되는가
 - [ ] "비공식 팬앱" 문구가 명확한가
-- [ ] 더미 데이터 경고(⚠) 문구가 간결하고 UX를 방해하지 않는가
+- [ ] 더미 데이터 경고(⚠) 문구 "(상업 API 미연동)"이 간결하고 UX를 방해하지 않는가
 - [ ] 개인정보처리방침·이용약관·데이터 안내 링크 3개가 모두 클릭 가능한가
 
-## 11. 광고 Placeholder UX
+## 12. 광고 Placeholder UX
 
 - [ ] 홈 상단 배너 광고 placeholder가 "광고 영역" 표시로 보이는가
 - [ ] 홈 경기 목록 중간 native 광고 placeholder가 자연스러운 위치에 있는가
@@ -108,7 +115,7 @@
 - [ ] 경기센터 하단 배너가 콘텐츠 이후 하단에 위치하는가
 - [ ] DevTools Network 탭에서 광고 SDK 스크립트가 로드되지 않는가
 
-## 12. 모바일 375px 가독성
+## 13. 모바일 375px 가독성
 
 - [ ] 375px 기준 홈 화면 가로 스크롤 없음 **(NB-6)**
 - [ ] 경기 카드 팀명이 잘리지 않고 표시되는가
@@ -116,18 +123,77 @@
 - [ ] BottomNav 탭 3개가 균등하게 표시되는가
 - [ ] BottomNav가 footer/정책 링크와 겹치지 않는가
 
-## 13. PWA 설치 확인
+## 14. PWA 설치 확인
 
 - [ ] Chrome 주소창 오른쪽에 설치 아이콘이 표시되는가
 - [ ] "홈 화면에 추가" 시 앱 이름 "오늘의 메이저"로 표시되는가
 - [ ] 설치 후 standalone 모드로 실행되는가
 - [ ] DevTools → Application → Manifest 탭 오류 없음 **(NB-5)**
 
-## 14. 외부 API/SDK 미호출 확인
+## 15. 외부 API/광고 SDK 미호출 확인
 
 - [ ] DevTools → Network 탭에서 `api.mlb.com` 요청 없음 확인
 - [ ] DevTools → Network 탭에서 `adsbygoogle`, `doubleclick` 요청 없음 확인
 - [ ] DevTools → Console에서 광고 SDK 관련 오류 없음 확인
+
+---
+
+## Phase 16.5 — UI/UX 폴리시 점검 항목
+
+> Phase 16.5(`phase-16-5-product-ui-ux-polish`) 변경사항을 반영한 추가 확인 항목입니다.
+
+### DS-1. 디자인 시스템 통일성
+
+- [ ] 모든 카드 컴포넌트가 `rounded-xl`을 사용한다 (StatCard, BoxScoreTable, LineupTable, RecentGameLogTable, RosterTable 등).
+- [ ] Section 타이틀이 `text-sm font-semibold text-gray-700` 스타일로 표시된다 (`uppercase`, `tracking-wide` 없음).
+- [ ] Section 타이틀이 한국어로 읽기 쉽게 표시된다.
+- [ ] TeamStatSummary 내 "팀 타격", "팀 투구" 서브 레이블이 `text-xs font-medium text-gray-500` 스타일이다.
+
+### DS-2. 카드/버튼/상태 배지
+
+- [ ] EmptyState 컴포넌트에 ⚾ 이모지 아이콘이 표시된다.
+- [ ] 검색 결과 없음, 라인업 없음, 이벤트 없음 등 각 EmptyState에 ⚾이 표시된다.
+- [ ] GameShareCard "주요 기록" 레이블에 `uppercase tracking-wide`가 없다.
+- [ ] TeamShareCard "최근 경기" 레이블에 `uppercase tracking-wide`가 없다.
+- [ ] RosterTable 포지션 뱃지가 `rounded-md`를 사용한다.
+
+### DS-3. 터치 영역
+
+- [ ] AppHeader "← 뒤로" 링크가 `min-h-[44px]`을 충족한다 (경기센터, 선수 상세, 팀 상세 등).
+- [ ] 경기 상세, 선수 상세, 팀 상세 진입 후 "← 뒤로" 탭 시 이전 화면으로 이동한다.
+- [ ] BottomNav 탭 영역이 `min-h-[44px]`를 충족한다.
+- [ ] 선수 검색 input/버튼이 `min-h-[44px]`를 충족한다.
+
+### DS-4. DataSourceNotice 가독성
+
+- [ ] 팀 상세(`/teams/[teamId]`) 헤더 영역에서 `※ 비공식 앱 · 더미 데이터 기준` 중복 문구가 제거되었다.
+- [ ] 팀 상세 하단 DataSourceNotice가 여전히 표시된다 (제거되지 않음).
+- [ ] "(상업 API 미연동)" 경고 문구가 간결하게 표시된다.
+
+### DS-5. 광고 placeholder UX
+
+- [ ] 광고 placeholder가 핵심 정보(스코어, 스탯, 라인업)를 가리지 않는다.
+- [ ] 공유 완료 후 광고 슬롯이 자동 overlay가 아닌 인라인으로만 표시된다.
+- [ ] 실제 광고 SDK import가 없다 (`window.adsbygoogle` 등).
+- [ ] 광고 ID(Publisher ID, App ID)가 하드코딩되어 있지 않다.
+
+### DS-6. 공식 앱 오해 표현 없음 (회귀 방지)
+
+- [ ] 앱 전체에 "공식 MLB 앱" 표현이 없다.
+- [ ] 앱 전체에 "MLB 공식 앱" 표현이 없다.
+- [ ] 앱 전체에 "공식 기록" 표현이 없다.
+- [ ] 앱 전체에 "Official MLB App" / "official data" 표현이 없다.
+- [ ] 앱 전체에 "AI 요약", "문자중계", "하이라이트" 표현이 없다.
+- [ ] 공유 텍스트에도 위 표현이 없다.
+
+---
+
+## Release Blocker / Non-Blocker 구분 기준
+
+| 구분 | 기준 | 예시 |
+|------|------|------|
+| **Blocker** | 사용자 가치 저해 또는 법적 리스크 | 비공식 고지 누락, 공식 앱 오해 표현, API Key 노출, 빌드 실패 |
+| **Non-Blocker** | UX 개선 사항, 시각적 불일치 | 광고 placeholder 위치, EmptyState 아이콘, 반응형 미세조정 |
 
 ---
 
@@ -141,4 +207,4 @@
 
 ---
 
-*이 문서는 Phase 15 기준입니다. smoke-test-results.md non-blocker 7개 항목(NB-1~NB-7)과 연결됩니다.*
+*이 문서는 Phase 15/16.5 기준입니다. smoke-test-results.md non-blocker 7개 항목(NB-1~NB-7)과 연결됩니다.*
