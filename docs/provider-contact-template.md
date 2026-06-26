@@ -97,10 +97,24 @@ Best regards,
 ## 문의 전 체크리스트
 
 - [ ] `docs/commercial-api-checklist.md` 전체 검토 완료
+- [ ] `docs/commercial-api-due-diligence.md` 해당 provider 항목 확인
+- [ ] `docs/provider-contact-log.md`에 문의 기록 항목 생성 준비
 - [ ] `docs/api-provider-evaluation.md`에 해당 provider 상태 업데이트 준비
 - [ ] 계약 전 production 데이터 소스로 사용하지 않을 것 확인
 - [ ] API Key를 커밋하거나 클라이언트에 노출하지 않을 것 확인
 - [ ] MLB Stats API (api.mlb.com)는 절대 사용하지 않을 것 확인
+
+---
+
+## Phase 16 연관 문서 (문의/검토 준비 단계)
+
+> Phase 16은 실제 API 연동이 아니라 "문의/검토 준비 단계"입니다.
+> 실제 API 연결은 계약·약관 확인 완료 후 별도 Phase에서 진행합니다.
+
+- `docs/commercial-api-due-diligence.md` — 후보별 due diligence 항목 테이블
+- `docs/provider-contact-log.md` — 문의 발송·회신 기록 로그
+- `docs/api-poc-selection-criteria.md` — POC 후보 선정 기준 및 scoring template
+- `docs/commercial-api-risk-register.md` — 상업 API 연동 리스크 등록부
 
 ---
 

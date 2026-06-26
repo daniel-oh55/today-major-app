@@ -221,4 +221,19 @@ POC 실패 시 UI는 아래 정책을 따릅니다.
 
 ---
 
+---
+
+## Phase 16 연관 문서 (문의/검토 준비 단계)
+
+> Phase 16은 실제 API 연동이 아니라 "문의/검토 준비 단계"입니다.
+> POC Runbook은 문의·계약 완료 후 실제 연동 단계에서 사용합니다.
+> 실제 API 연결은 계약·약관 확인 완료 후 별도 Phase에서 진행합니다.
+
+- `docs/commercial-api-due-diligence.md` — 후보별 due diligence 항목 테이블
+- `docs/provider-contact-log.md` — 문의 발송·회신 기록 로그
+- `docs/api-poc-selection-criteria.md` — POC 후보 선정 기준 및 scoring template (이 문서 이전 단계)
+- `docs/commercial-api-risk-register.md` — 상업 API 연동 리스크 등록부
+
+---
+
 *이 문서는 Phase 9 기준으로 작성되었습니다. 실제 API 연동 시 업데이트가 필요합니다.*

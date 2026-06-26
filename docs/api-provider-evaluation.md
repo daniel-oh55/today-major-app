@@ -212,4 +212,16 @@
 
 ---
 
+## Phase 16 연관 문서 (문의/검토 준비 단계)
+
+> Phase 16은 실제 API 연동이 아니라 "문의/검토 준비 단계"입니다.
+> 실제 API 연결은 계약·약관 확인 완료 후 별도 Phase에서 진행합니다.
+
+- `docs/commercial-api-due-diligence.md` — 후보별 due diligence 항목 상세 테이블 (Phase 16 신규)
+- `docs/provider-contact-log.md` — 문의 발송·회신 기록 로그 (Phase 16 신규)
+- `docs/api-poc-selection-criteria.md` — POC 후보 선정 기준 및 scoring template (Phase 16 신규)
+- `docs/commercial-api-risk-register.md` — 상업 API 연동 리스크 등록부 (Phase 16 신규)
+
+---
+
 *이 문서는 Phase 8/9 기준으로 작성되었습니다. 계약 진행 시 항목을 업데이트하세요.*

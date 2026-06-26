@@ -241,6 +241,26 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 - [x] `docs/smoke-test-results.md` — smoke test 결과 기록 템플릿 (날짜·URL·환경별 결과표, 최종 판단)
 - [x] 문서 연결 — deployment-checklist, release-candidate-checklist에서 smoke-test 문서 상호 링크 추가
 
+### Phase 14 (14B + 14C)
+- [x] Vercel GitHub App 연동 — push 시 Preview/Production 자동 배포
+- [x] `@eslint/js` 버전 다운그레이드 (`^10` → `^9`) — Vercel `npm install` peer dep 충돌 해결 (Phase 14C)
+- [x] `docs/smoke-test-results.md` — Vercel Production smoke test #1 결과 기록 (Phase 14B, 31개 항목, pass 24 / not tested 7 / 판단: Ready for deployment)
+
+### Phase 15
+- [x] `docs/internal-test-checklist.md` — MVP 내부 테스트 체크리스트 (smoke test non-blocker NB-1~NB-7 연결, 14개 카테고리)
+- [x] BottomNav 탭 `min-h-[44px] justify-center` — 모바일 터치 영역 보장
+- [x] 선수 검색 input·버튼 `min-h-[44px]` — 모바일 터치 영역 보장
+- [x] DataSourceNotice 비상업 경고 문구 간결화
+
+### Phase 16
+- [x] `docs/commercial-api-due-diligence.md` — 상업 API 후보 5개 due diligence 테이블 (문의 전 준비 단계)
+- [x] `docs/provider-contact-log.md` — Provider 문의 발송·회신 기록 로그
+- [x] `docs/api-poc-selection-criteria.md` — POC 후보 선정 기준 및 scoring template
+- [x] `docs/commercial-api-risk-register.md` — 상업 API 연동 관련 리스크 13개 등록부
+
+> **Phase 16 주의:** 실제 외부 API 연결 없음. 모든 후보의 가격·약관·상업 이용 여부는 문의 전 `확인 필요` 상태.
+> 실제 API 연동은 계약·약관 확인 완료 후 별도 Phase에서 진행합니다.
+
 ### 미포함 항목 (의도적 제외)
 - MLB/구단 로고, 선수 사진, 영상, 하이라이트 (권리 리스크)
 - 한국어 문자중계 / AI 요약 기능
@@ -256,7 +276,7 @@ MVP 기능은 구현되어 있으나, 실제 사용자에게 배포하기 전에
 
 | 항목 | 내용 |
 |------|------|
-| 상업 API 계약 | 광고형 무료 앱 사용 가능 여부 포함 ([체크리스트](docs/commercial-api-checklist.md)) |
+| 상업 API 계약 | 광고형 무료 앱 사용 가능 여부 포함 ([체크리스트](docs/commercial-api-checklist.md) / [due diligence](docs/commercial-api-due-diligence.md) / [POC 선정 기준](docs/api-poc-selection-criteria.md)) |
 | 광고 SDK 연동 | AdSense / AdManager 계약 후 `src/lib/ads/providers/` 구현 |
 | 데이터 출처 고지 | 계약 API의 출처 표기 의무 확인 |
 | 개인정보 처리방침 | 광고 SDK 사용 시 개인정보 수집 고지 의무 |
