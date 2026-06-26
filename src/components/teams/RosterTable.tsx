@@ -47,7 +47,7 @@ export function RosterTable({ roster, teamName }: RosterTableProps) {
                   </Link>
                 </th>
                 <td className="py-2.5 px-2 text-center">
-                  <span className="inline-block bg-gray-100 text-gray-600 text-xs font-semibold rounded px-1.5 py-0.5">
+                  <span className="inline-block bg-gray-100 text-gray-600 text-xs font-semibold rounded-md px-1.5 py-0.5">
                     {player.position}
                   </span>
                 </td>

@@ -11,7 +11,7 @@ export function TeamStatSummary({ seasonStats: s }: TeamStatSummaryProps) {
     <Section title={`${s.season} 시즌 팀 스탯`}>
       <div className="flex flex-col gap-3">
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">팀 타격</p>
+          <p className="text-xs font-medium text-gray-500 mb-2">팀 타격</p>
           <div className="grid grid-cols-4 gap-2">
             <StatCard label="타율" value={s.teamAvg} />
             <StatCard label="OPS"  value={s.teamOps} />
@@ -20,7 +20,7 @@ export function TeamStatSummary({ seasonStats: s }: TeamStatSummaryProps) {
           </div>
         </div>
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">팀 투구</p>
+          <p className="text-xs font-medium text-gray-500 mb-2">팀 투구</p>
           <div className="grid grid-cols-4 gap-2">
             <StatCard label="ERA"  value={s.teamEra} />
             <StatCard label="WHIP" value={s.teamWhip} />

@@ -51,9 +51,6 @@ export default async function TeamDetailPage({ params }: { params: Promise<{ tea
             {team.venue && (
               <p className="text-xs text-gray-400 mt-0.5">{team.venue}</p>
             )}
-            <p className="text-xs text-gray-400 mt-1">
-              ※ 비공식 앱 · 더미 데이터 기준
-            </p>
           </div>
         </div>
         {/* 즐겨찾기 버튼 */}
