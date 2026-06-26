@@ -20,7 +20,7 @@ export function BottomNav() {
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}
-            className={`flex-1 flex flex-col items-center py-2 text-xs font-medium gap-0.5 ${active ? "text-blue-600" : "text-gray-500"}`}
+            className={`flex-1 flex flex-col items-center justify-center min-h-[44px] py-2 text-xs font-medium gap-0.5 ${active ? "text-blue-600" : "text-gray-500"}`}
           >
             <span className="text-xl leading-none">{item.icon}</span>
             <span>{item.label}</span>

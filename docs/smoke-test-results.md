@@ -325,3 +325,108 @@
 ```
 
 ---
+
+### Vercel Production smoke test #1 — 2026-06-25
+
+**배포 URL:** `https://today-major-app.vercel.app` (Vercel canonical production domain)<br />
+**배포 환경:** Production<br />
+**배포 상태:** Ready (Vercel GitHub App 연동, state: success)<br />
+**App artifact commit SHA:** `d1d135f1` (Merge PR #18: Phase 14C — fix @eslint/js peer dep, 2026-06-25T06:09:03Z)<br />
+**Deployed app commit SHA:** `d1d135f1` (Merge PR #18: Phase 14C — fix @eslint/js peer dep, 2026-06-25T06:09:03Z)<br />
+**Smoke result documentation commit:** `3ca1af2` (docs: Phase 14B Vercel Production smoke test results — Ready for deployment)<br />
+**테스트 담당:** Claude Sonnet 4.6 (automated — curl HTTP checks + API runtime validation + static analysis)
+
+**테스트 환경:**
+
+| 환경 | 실행 여부 |
+|------|----------|
+| Desktop Chrome (latest) | 미실행 — curl + API 런타임 + 정적 분석으로 대체 |
+| Mobile viewport 375px (DevTools) | 미실행 — 브라우저 확인 필요 |
+| PWA install check (Chrome Manifest 탭) | 미실행 — 브라우저 확인 필요 |
+
+---
+
+#### 테스트 결과표
+
+> 결과 값: `pass` / `fail` / `blocked` / `not tested`
+>
+> 검증 방법: HTTP = curl status 확인 / 정적 = grep/소스 분석 / 런타임 = 실 Vercel API 응답 / 브라우저 = 미실행
+
+| # | 항목 | 결과 | 검증 방법 | 비고 |
+|---|------|------|----------|------|
+| 1 | 홈 화면 접속 (`/`) | pass | HTTP | 200 OK |
+| 2 | 오늘 경기 목록 표시 | pass | 런타임 | `/api/games/today` — 더미 경기 7건 반환 |
+| 3 | 경기 필터 탭 동작 | not tested | 브라우저 | 클라이언트 JS 상호작용 필요 |
+| 4 | 경기센터 접속 (`/games/g001`) | pass | HTTP | 200 OK |
+| 5 | 경기센터 스코어보드 표시 | pass | 런타임 | `/api/games/g001` — NYY vs BOS 스코어 확인 |
+| 6 | 경기센터 라인업/박스스코어 표시 | not tested | 브라우저 | 브라우저 렌더링 확인 필요 |
+| 7 | 선수 검색 (`/players`) | pass | HTTP | 200 OK |
+| 8 | 선수 상세 (`/players/p002`) | pass | HTTP | 200 OK — Shohei Ohtani (LAD, DH) |
+| 9 | 팀 상세 (`/teams/nyy`) | pass | HTTP + 런타임 | 200 OK, DataSourceNotice 확인 |
+| 10 | 즐겨찾기 (`/favorites`) | pass | HTTP | 200 OK |
+| 11 | 즐겨찾기 추가/해제 동작 | not tested | 브라우저 | localStorage JS 상호작용 필요 |
+| 12 | 공유 기능 (선수/팀/경기) | not tested | 브라우저 | Share API/Clipboard API 브라우저 확인 필요 |
+| 13 | 공유 완료 후 inline placeholder | pass | 정적 | `ShareResultMessage.tsx` — 조건부 인라인, overlay 아님 |
+| 14 | `/privacy` 접속 | pass | HTTP | 200 OK, "← 홈" 링크 확인 |
+| 15 | `/terms` 접속 | pass | HTTP | 200 OK, "← 홈" 링크 확인 |
+| 16 | `/data-notice` 접속 | pass | HTTP | 200 OK, "← 홈" 링크 확인 |
+| 17 | `manifest.json` (200 OK, 유효한 JSON) | pass | HTTP + 런타임 | name: "오늘의 메이저", short_name: "오늘메이저", icons 4종 |
+| 18 | PWA 아이콘 4종 (200 OK) | pass | HTTP | icon-192, icon-512, maskable-icon-192, maskable-icon-512 모두 200 |
+| 19 | Chrome DevTools Manifest 오류 없음 | not tested | 브라우저 | DevTools Application 탭 확인 필요 |
+| 20 | 광고 placeholder 전 화면 표시 | pass | HTTP + 정적 | 홈 HTML "광고" 6회, 경기센터 `gamecenter_bottom_banner` 1개 확인 |
+| 21 | 광고 슬롯 위치·종류 정책 일치 | pass | HTTP + 정적 | 경기센터: `gamecenter_bottom_banner` 1개만 / 전 슬롯 코드 분석으로 정책 일치 확인 |
+| 22 | DataSourceNotice 표시 (홈·팀 상세) | pass | HTTP + 런타임 | 홈·`/teams/nyy` HTML "비공식 팬앱" 확인 |
+| 23 | DataSourceNotice 정책 링크 3종 | pass | HTTP | 홈·팀 상세 HTML `/privacy`, `/terms`, `/data-notice` 링크 3종 모두 확인 |
+| 24 | 잘못된 ID 접근 → NotFound 표시 | pass | HTTP | `/games/unknown-id`, `/players/unknown-id`, `/teams/unknown-id` 모두 404 |
+| 25 | 모바일 375px 가로 스크롤 없음 | not tested | 브라우저 | DevTools 모바일 뷰포트 확인 필요 |
+| 26 | 모바일 44px 터치 영역 | not tested | 브라우저 | DevTools 확인 필요 |
+| 27 | API Key/secret 클라이언트 노출 없음 | pass | HTTP + 정적 | 홈 HTML `BASEBALL_API_KEY` 없음, `NEXT_PUBLIC_` provider secret 없음 |
+| 28 | 실제 외부 API 호출 없음 | pass | 런타임 + 정적 | Vercel 앱 더미 데이터 반환 확인, `api.mlb.com` 홈 HTML 없음 |
+| 29 | 광고 SDK 스크립트 없음 | pass | HTTP + 정적 | 홈 HTML `adsbygoogle`, `doubleclick` 없음 |
+| 30 | MLB/구단 로고·선수 사진·영상 없음 | pass | 정적 | 코드 분석 img src 참조 없음 확인 |
+| 31 | 한국어 문자중계·AI 요약 없음 | pass | HTTP | 홈 HTML "문자중계", "AI 요약" 없음 |
+
+---
+
+#### Release Blocker 목록
+
+> 아래 항목 중 하나라도 있으면 배포 중단/롤백
+
+| # | 내용 | 관련 이슈 |
+|---|------|----------|
+| — | (없음) | — |
+
+#### Non-Blocker Follow-up 목록
+
+> 다음 릴리즈 전 처리 예정
+
+| # | 내용 | 우선순위 |
+|---|------|----------|
+| 1 | 경기 필터 탭 동작 브라우저 확인 (클라이언트 JS) | medium |
+| 2 | 경기센터 라인업/박스스코어 렌더링 브라우저 확인 | medium |
+| 3 | 즐겨찾기 추가/해제 JS 동작 브라우저 확인 | medium |
+| 4 | 공유 버튼 (Share API/Clipboard) 브라우저 동작 확인 | medium |
+| 5 | Chrome DevTools → Application → Manifest 오류 없음 확인 | low |
+| 6 | 모바일 375px 가로 스크롤 없음 브라우저 확인 | low |
+| 7 | 모바일 44px 터치 영역 브라우저 확인 | low |
+
+---
+
+#### Vercel Production smoke summary
+
+| Total | Pass | Fail | Blocked | Not tested |
+|-------|------|------|---------|------------|
+| 31 | 24 | 0 | 0 | 7 |
+
+---
+
+#### 최종 판단
+
+- [ ] **Ready for internal test**
+- [x] **Ready for deployment with non-blocker follow-up**
+- [ ] **Needs fix before deployment**
+- [ ] **Blocked**
+
+> **판단 근거:** Vercel Production URL `https://today-major-app.vercel.app` 기준으로 주요 라우트 HTTP 200, API 더미 데이터 반환, 보안 요건(API Key 미노출, 광고 SDK 없음, 실제 외부 API 미호출), 권리 리스크 요건(MLB 로고/사진/영상 없음, 문자중계/AI 요약 없음)을 모두 확인하였습니다. Release blocker 없음. non-blocker 7개(브라우저 전용 확인 항목)는 다음 릴리즈 전 처리를 권고합니다.
+
+---

@@ -16,7 +16,7 @@ export function DataSourceNotice({ metadata = PROVIDER_METADATA.dummy }: DataSou
       </p>
       {!metadata.isCommercialReady && (
         <p className="text-xs text-amber-500 mt-1">
-          ⚠ 현재 데이터: {metadata.label} — 상업 API 계약 전 더미 데이터 기준
+          ⚠ 현재 데이터: {metadata.label} (상업 API 미연동)
         </p>
       )}
       <div className="flex gap-4 mt-2 flex-wrap">

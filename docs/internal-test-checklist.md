@@ -1,77 +1,210 @@
 # 내부 테스트 체크리스트
 
-> **내부 테스트용 확인 목록입니다.**
-> 현재 모든 데이터는 더미 데이터 기준입니다.
+> MVP 내부 테스트용 수동 확인 목록입니다.
+> Vercel Production smoke test non-blocker 항목 및 브라우저 전용 확인 항목을 포함합니다.
 >
-> Phase 15(모바일 UX 미세 개선) 항목은 `phase-15-internal-test-feedback` 브랜치 병합 후 이 문서에 추가됩니다.
+> **테스트 URL:** `https://today-major-app.vercel.app`
+> **참고:** `docs/smoke-test-results.md` — Vercel Production smoke test #1 결과 기반
 
 ---
 
-## Phase 16.5 — UI/UX 폴리시 확인 항목
+## Smoke Test Non-Blocker 후속 항목
 
-> 이 항목들은 Phase 16.5(`phase-16-5-product-ui-ux-polish`) 변경사항을 반영합니다.
-> lint / tsc / build 기준: 오류 없음.
+> `docs/smoke-test-results.md` non-blocker 7개 — 브라우저 확인이 필요해 automated smoke test에서 not tested로 남긴 항목
+
+| 코드 | 항목 | 우선순위 | 확인 방법 |
+|------|------|----------|----------|
+| NB-1 | 경기 필터 탭 (전체/진행 중/예정/종료) 클릭 시 목록 필터링 동작 | medium | 홈 화면에서 각 탭 클릭 |
+| NB-2 | 경기센터 라인업·박스스코어 표 렌더링 | medium | `/games/g001` 접속 후 스크롤 |
+| NB-3 | 즐겨찾기 추가/해제 버튼 동작 및 새로고침 후 유지 여부 | medium | 팀/선수 상세 → ★ 버튼 → 새로고침 → `/favorites` 확인 |
+| NB-4 | 공유 버튼 동작 (Share API 또는 클립보드 복사) | medium | 선수/팀/경기 상세 → 공유하기 버튼 |
+| NB-5 | Chrome DevTools → Application → Manifest 탭 오류 없음 | low | Chrome DevTools (F12) → Application → Manifest |
+| NB-6 | 모바일 375px 기준 가로 스크롤 없음 | low | DevTools Toggle device toolbar (Ctrl+Shift+M), 375×812 |
+| NB-7 | 모바일 44px 터치 영역 (버튼, BottomNav, 카드) | low | DevTools 모바일 뷰포트에서 탭·버튼 영역 확인 (Phase 15/16.5 개선 완료) |
+
+---
+
+## 1. 첫 진입 인상
+
+- [ ] 홈 화면 첫 진입 시 앱 목적(MLB 경기 정보)이 1초 내 이해되는가
+- [ ] "한국 시간 기준 오늘의 미국 프로야구" 문구가 명확한가
+- [ ] 히어로 섹션의 날짜·시간(KST)이 오늘 날짜로 표시되는가
+- [ ] 비공식 앱임을 인지할 수 있는가 (히어로 "비공식 앱 · 개발용 데이터", 하단 DataSourceNotice)
+
+## 2. 홈 화면 정보 이해도
+
+- [ ] 경기 수 요약 카드(전체·진행 중·예정·종료)의 의미가 직관적인가
+- [ ] 경기 카드에서 팀명과 스코어가 즉시 파악되는가
+- [ ] 예정 경기 카드의 KST 시간 표시가 명확한가
+- [ ] 경기 필터 탭 클릭 시 목록이 정상 필터링되는가 **(NB-1)**
+- [ ] 즐겨찾는 팀이 있을 때 "즐겨찾는 팀" 섹션이 전체 목록 위에 표시되는가
+- [ ] 광고 placeholder가 경기 목록 흐름을 크게 방해하지 않는가
+
+## 3. 경기 카드 가독성
+
+- [ ] 원정/홈 팀 구분이 명확한가 (왼쪽 = 원정, 오른쪽 = 홈)
+- [ ] 종료 경기에서 승팀 팀명이 진하고 패팀이 흐리게 표시되는가
+- [ ] 진행 중 경기에서 이닝 정보(초·말 n회)가 표시되는가
+- [ ] 카드 터치 영역이 충분히 넓은가 (`min-h-[88px]`)
+- [ ] "경기센터 ›" 안내 텍스트가 보이는가
+
+## 4. 경기센터 핵심 정보
+
+- [ ] `/games/g001` 접속 시 스코어보드가 화면 상단에 바로 보이는가
+- [ ] 라인업 표가 정상 렌더링되는가 **(NB-2)**
+- [ ] 박스스코어 표가 정상 렌더링되는가 **(NB-2)**
+- [ ] 박스스코어 표가 모바일에서 좌우 스크롤 가능한가 (`overflow-x-auto`)
+- [ ] 경기 날짜·구장 정보가 표시되는가
+
+## 5. 선수 검색 흐름
+
+- [ ] 검색창이 상단 sticky 위치에 고정되는가
+- [ ] 2자 미만 입력 시 안내 문구("2자 이상 입력해 주세요")가 표시되는가
+- [ ] "Ohtani" 영문 검색 시 결과가 표시되는가
+- [ ] "오타니" 한국어 검색 시 결과가 표시되는가
+- [ ] 검색 결과가 없을 때 EmptyState 문구가 표시되는가
+- [ ] 검색창·검색 버튼의 터치 영역이 충분한가 (`min-h-[44px]`)
+
+## 6. 선수 상세 스탯 이해도
+
+- [ ] `/players/p002` (오타니) 접속 시 타율·OPS·홈런·타점이 보이는가
+- [ ] 선수 이름(한국어·영어)이 모두 표시되는가
+- [ ] 팀명·포지션·등번호가 표시되는가
+- [ ] 즐겨찾기 버튼이 보이고 동작하는가 **(NB-3)**
+- [ ] 공유 버튼이 보이고 동작하는가 **(NB-4)**
+
+## 7. 팀 상세 이동성
+
+- [ ] `/teams/nyy` 접속 시 팀 이름·스탯이 표시되는가
+- [ ] 로스터 목록에서 선수 이름 클릭 시 선수 상세로 이동하는가
+- [ ] 하단에 DataSourceNotice가 표시되는가
+- [ ] 즐겨찾기 버튼이 동작하는가 **(NB-3)**
+
+## 8. 즐겨찾기 흐름
+
+- [ ] 팀/선수 즐겨찾기 추가 후 `/favorites` 페이지에 표시되는가
+- [ ] 즐겨찾기 해제 후 목록에서 사라지는가
+- [ ] 새로고침 후에도 즐겨찾기가 유지되는가 (localStorage)
+- [ ] 즐겨찾기가 없을 때 EmptyState 문구가 표시되는가
+
+## 9. 공유 버튼 흐름
+
+- [ ] 공유 버튼 클릭 시 Share API(모바일) 또는 클립보드 복사(데스크톱)가 동작하는가 **(NB-4)**
+- [ ] 공유 성공 후 "공유됨" 또는 "복사됨" 상태 텍스트가 인라인으로 표시되는가
+- [ ] 공유 완료 메시지가 overlay popup이 아닌 인라인 표시인가
+
+## 10. 정책/고지 페이지
+
+- [ ] `/privacy`, `/terms`, `/data-notice` 페이지가 정상 로드되는가
+- [ ] 각 페이지 상단 "← 홈" 링크가 홈으로 이동하는가
+- [ ] "비공식 팬앱" / 더미 데이터 / MLB Stats API 미사용 고지 문구가 표시되는가
+- [ ] "공식", "Official", "공식 기록" 표현이 없는가
+
+## 11. DataSourceNotice UX
+
+- [ ] 홈 및 팀 상세 하단에 DataSourceNotice가 표시되는가
+- [ ] "비공식 팬앱" 문구가 명확한가
+- [ ] 더미 데이터 경고(⚠) 문구 "(상업 API 미연동)"이 간결하고 UX를 방해하지 않는가
+- [ ] 개인정보처리방침·이용약관·데이터 안내 링크 3개가 모두 클릭 가능한가
+
+## 12. 광고 Placeholder UX
+
+- [ ] 홈 상단 배너 광고 placeholder가 "광고 영역" 표시로 보이는가
+- [ ] 홈 경기 목록 중간 native 광고 placeholder가 자연스러운 위치에 있는가
+- [ ] 즐겨찾기 페이지 인라인 광고가 콘텐츠와 겹치지 않는가
+- [ ] 경기센터 하단 배너가 콘텐츠 이후 하단에 위치하는가
+- [ ] DevTools Network 탭에서 광고 SDK 스크립트가 로드되지 않는가
+
+## 13. 모바일 375px 가독성
+
+- [ ] 375px 기준 홈 화면 가로 스크롤 없음 **(NB-6)**
+- [ ] 경기 카드 팀명이 잘리지 않고 표시되는가
+- [ ] 경기 요약 카드(4개) 가로 배치가 375px에서 깨지지 않는가
+- [ ] BottomNav 탭 3개가 균등하게 표시되는가
+- [ ] BottomNav가 footer/정책 링크와 겹치지 않는가
+
+## 14. PWA 설치 확인
+
+- [ ] Chrome 주소창 오른쪽에 설치 아이콘이 표시되는가
+- [ ] "홈 화면에 추가" 시 앱 이름 "오늘의 메이저"로 표시되는가
+- [ ] 설치 후 standalone 모드로 실행되는가
+- [ ] DevTools → Application → Manifest 탭 오류 없음 **(NB-5)**
+
+## 15. 외부 API/광고 SDK 미호출 확인
+
+- [ ] DevTools → Network 탭에서 `api.mlb.com` 요청 없음 확인
+- [ ] DevTools → Network 탭에서 `adsbygoogle`, `doubleclick` 요청 없음 확인
+- [ ] DevTools → Console에서 광고 SDK 관련 오류 없음 확인
+
+---
+
+## Phase 16.5 — UI/UX 폴리시 점검 항목
+
+> Phase 16.5(`phase-16-5-product-ui-ux-polish`) 변경사항을 반영한 추가 확인 항목입니다.
 
 ### DS-1. 디자인 시스템 통일성
 
 - [ ] 모든 카드 컴포넌트가 `rounded-xl`을 사용한다 (StatCard, BoxScoreTable, LineupTable, RecentGameLogTable, RosterTable 등).
 - [ ] Section 타이틀이 `text-sm font-semibold text-gray-700` 스타일로 표시된다 (`uppercase`, `tracking-wide` 없음).
-- [ ] Section 타이틀이 한국어로 읽기 쉽게 표시된다 (불필요한 자간/대문자 없음).
+- [ ] Section 타이틀이 한국어로 읽기 쉽게 표시된다.
 - [ ] TeamStatSummary 내 "팀 타격", "팀 투구" 서브 레이블이 `text-xs font-medium text-gray-500` 스타일이다.
+
+### DS-2. 카드/버튼/상태 배지
+
+- [ ] EmptyState 컴포넌트에 ⚾ 이모지 아이콘이 표시된다.
+- [ ] 검색 결과 없음, 라인업 없음, 이벤트 없음 등 각 EmptyState에 ⚾이 표시된다.
 - [ ] GameShareCard "주요 기록" 레이블에 `uppercase tracking-wide`가 없다.
 - [ ] TeamShareCard "최근 경기" 레이블에 `uppercase tracking-wide`가 없다.
 - [ ] RosterTable 포지션 뱃지가 `rounded-md`를 사용한다.
 
-### DS-2. EmptyState 시각적 개선
+### DS-3. 터치 영역
 
-- [ ] EmptyState 컴포넌트에 ⚾ 이모지 아이콘이 표시된다.
-- [ ] 검색 결과 없음, 라인업 없음, 이벤트 없음 등 각 EmptyState에 ⚾이 표시된다.
-- [ ] EmptyState가 py-12 기준으로 적절한 세로 여백을 가진다.
-
-### DS-3. AppHeader 터치 영역
-
-- [ ] "← 뒤로" 링크가 `min-h-[44px]`을 충족한다 (경기센터, 선수 상세, 팀 상세 등).
+- [ ] AppHeader "← 뒤로" 링크가 `min-h-[44px]`을 충족한다 (경기센터, 선수 상세, 팀 상세 등).
 - [ ] 경기 상세, 선수 상세, 팀 상세 진입 후 "← 뒤로" 탭 시 이전 화면으로 이동한다.
+- [ ] BottomNav 탭 영역이 `min-h-[44px]`를 충족한다.
+- [ ] 선수 검색 input/버튼이 `min-h-[44px]`를 충족한다.
 
-### DS-4. 팀 상세 헤더 중복 안내 제거
+### DS-4. DataSourceNotice 가독성
 
-- [ ] 팀 상세(`/teams/[teamId]`) 헤더 영역에서 `※ 비공식 앱 · 더미 데이터 기준` 문구가 제거되었다.
+- [ ] 팀 상세(`/teams/[teamId]`) 헤더 영역에서 `※ 비공식 앱 · 더미 데이터 기준` 중복 문구가 제거되었다.
 - [ ] 팀 상세 하단 DataSourceNotice가 여전히 표시된다 (제거되지 않음).
-- [ ] 동일한 안내가 두 번 표시되지 않는다.
+- [ ] "(상업 API 미연동)" 경고 문구가 간결하게 표시된다.
 
-### DS-5. 금지 표현 확인 (회귀 방지)
+### DS-5. 광고 placeholder UX
+
+- [ ] 광고 placeholder가 핵심 정보(스코어, 스탯, 라인업)를 가리지 않는다.
+- [ ] 공유 완료 후 광고 슬롯이 자동 overlay가 아닌 인라인으로만 표시된다.
+- [ ] 실제 광고 SDK import가 없다 (`window.adsbygoogle` 등).
+- [ ] 광고 ID(Publisher ID, App ID)가 하드코딩되어 있지 않다.
+
+### DS-6. 공식 앱 오해 표현 없음 (회귀 방지)
 
 - [ ] 앱 전체에 "공식 MLB 앱" 표현이 없다.
 - [ ] 앱 전체에 "MLB 공식 앱" 표현이 없다.
 - [ ] 앱 전체에 "공식 기록" 표현이 없다.
-- [ ] 앱 전체에 "Official MLB App" 표현이 없다.
+- [ ] 앱 전체에 "Official MLB App" / "official data" 표현이 없다.
 - [ ] 앱 전체에 "AI 요약", "문자중계", "하이라이트" 표현이 없다.
+- [ ] 공유 텍스트에도 위 표현이 없다.
 
 ---
 
-## 스모크 테스트 비차단 후속 항목 (NB 시리즈)
+## Release Blocker / Non-Blocker 구분 기준
 
-> 아래 항목들은 Vercel Production 스모크 테스트에서 비차단(non-blocker)으로 분류된 후속 확인 사항입니다.
-> `phase-15-internal-test-feedback` 상세 항목 참고.
-
-| ID | 항목 | 상태 |
-|----|------|------|
-| NB-1 | BottomNav 터치 영역 min-h-[44px] 확인 | 해결됨 (Phase 15) |
-| NB-2 | 선수 검색 input/버튼 min-h-[44px] 확인 | 해결됨 (Phase 15) |
-| NB-3 | DataSourceNotice 경고 문구 단축 "(상업 API 미연동)" | 해결됨 (Phase 15) |
-| NB-4 | AppHeader "← 뒤로" min-h-[44px] 확인 | 해결됨 (Phase 16.5) |
-| NB-5 | StatCard `rounded-xl` 통일 | 해결됨 (Phase 16.5) |
-| NB-6 | Section 타이틀 uppercase/tracking 제거 | 해결됨 (Phase 16.5) |
-| NB-7 | 팀 헤더 중복 안내 문구 제거 | 해결됨 (Phase 16.5) |
+| 구분 | 기준 | 예시 |
+|------|------|------|
+| **Blocker** | 사용자 가치 저해 또는 법적 리스크 | 비공식 고지 누락, 공식 앱 오해 표현, API Key 노출, 빌드 실패 |
+| **Non-Blocker** | UX 개선 사항, 시각적 불일치 | 광고 placeholder 위치, EmptyState 아이콘, 반응형 미세조정 |
 
 ---
 
-## 관련 문서
+## 결과 기록
 
-- `docs/mvp-qa-checklist.md` — 전체 MVP QA 체크리스트 (14개 카테고리)
-- `docs/deployment-checklist.md` — 배포 전 확인 목록
-- `docs/release-candidate-checklist.md` — 릴리즈 후보 확인 목록
+> 내부 테스트 완료 후 아래 표를 채워 주세요.
+
+| 날짜 | 테스터 | 환경 | Pass | Fail | 메모 |
+|------|--------|------|------|------|------|
+|      |        |      |      |      |      |
 
 ---
 
-*이 문서는 Phase 16.5 기준으로 작성되었습니다.*
+*이 문서는 Phase 15/16.5 기준입니다. smoke-test-results.md non-blocker 7개 항목(NB-1~NB-7)과 연결됩니다.*
