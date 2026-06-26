@@ -80,13 +80,13 @@ export default function PlayersPage() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             autoComplete="off"
-            className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200 transition-colors min-w-0"
+            className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-200 transition-colors min-w-0 min-h-[44px]"
           />
           <button
             type="button"
             onClick={() => handleSearch(query)}
             disabled={isLoading}
-            className="bg-blue-600 text-white text-sm font-semibold rounded-xl px-5 py-2.5 shrink-0 active:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="bg-blue-600 text-white text-sm font-semibold rounded-xl px-5 py-2.5 shrink-0 active:bg-blue-700 disabled:opacity-50 transition-colors min-h-[44px]"
             aria-label="선수 검색"
           >
             검색
